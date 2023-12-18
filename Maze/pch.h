@@ -17,7 +17,7 @@ struct Pos {
 
 	bool operator!=(Pos& other)
 	{
-		return !(*this == other)
+		return !(*this == other);
 	}
 
 	Pos operator+(Pos& other)

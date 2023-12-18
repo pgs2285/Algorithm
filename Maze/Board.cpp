@@ -46,7 +46,7 @@ void Board::GenerateMap()
     {
         for (int32 x = 0; x < _size; x++)
         {
-            if (x == 0 || x == _size - 1 || y == 0; || y == _size - 1)
+            if (x == 0 || x == _size - 1 || y == 0 || y == _size - 1)
             {
                 _tile[y][x] = TileType::WALL;
             }
@@ -62,7 +62,7 @@ TileType Board::GetTileType(Pos pos)
     if (pos.y < 0 || pos.y >= _size)
         return TileType::NONE;
 
-    return _tile[pos.y][pos.x]
+    return _tile[pos.y][pos.x];
 }
 
 ConsoleColor Board::GetTileColor(Pos pos)
@@ -71,7 +71,7 @@ ConsoleColor Board::GetTileColor(Pos pos)
 
     switch (tileType)
     {
-    case TileType::NONE:
+    case TileType::EMPTY:
         return ConsoleColor::GREEN;
 
     case TileType::WALL:
