@@ -1,8 +1,12 @@
 ﻿#include <iostream>
 #include "pch.h"
 #include "ConsoleHelper.h"
+#include "Board.h"
+
+Board board;
 int main()
 {
+    board.Init(25);
 
     uint64 lastTick = 0;
     while (true)
@@ -16,22 +20,8 @@ int main()
         // 로직
 
         // 렌더링
+        board.Render();
 
-        ConsoleHelper::SetCursorPosition(0, 0);
-        ConsoleHelper::ShowConsoleCursor(false);
-        ConsoleHelper::SetCursorColor(ConsoleColor::RED);
-
-
-        const char* TILE = "■";
-
-        for (int32 y = 0; y < 25; ++y)
-        {
-            for (int32 x = 0; x < 25; ++x)
-            {
-                cout << TILE;
-            }
-            cout << endl;
-        }
     }
 }
 
