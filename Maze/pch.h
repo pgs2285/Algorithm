@@ -25,6 +25,7 @@ struct Pos {
 		Pos ret;
 		ret.x = x + other.x;
 		ret.y = y + other.y;
+		return ret;
 	}
 
 	Pos& operator+=(Pos& other)

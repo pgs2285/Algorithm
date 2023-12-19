@@ -25,6 +25,7 @@ int main()
 
         // 렌더링
         board.Render();
+        player.Update(deltaTick);
 
     }
 }
