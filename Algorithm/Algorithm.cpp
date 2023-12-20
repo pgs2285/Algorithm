@@ -2,35 +2,37 @@
 //
 
 #include <iostream>
-#include <vector>
-#include "SelfModule/Vector.h"	
-
+#include <list>
+#include "SelfModule/List.h"	
 using namespace std;
-
-
-
 int main()
 {
-	vector<int> v;
-	for (int i = 0; i < 10; ++i)
-	{
-		v.push_back(i);
-		cout << v.size() << " " << v.capacity() << endl;
-	}
-
-	v.clear();
-	cout << "클리어 후 " << endl;
-	cout << v.size() << " " << v.capacity() << endl;
-	v.push_back(1);
-	cout << v.size() << " " << v.capacity() << endl;
-	// 클리어 전 capacity 그대로 유지됨.
-	
-	Vector<char> V;
-	
+	list<int> li;
+	list<int>::iterator eraseIt;
 	for (int i = 0; i < 10; i++)
 	{
-		V.push_back('a');
-		cout << V[i]  << V.size() << " " << V.capacity() << endl;
+		if (i == 5) eraseIt = li.insert(li.end(), i); // 이상황에선 end앞에 넣어짐
+		else li.push_back(i);
 	}
-	V.reserve(100); // 개수를 알면 reserve를 쓰는게 훨씬 유용하다..
+	li.pop_back();
+	li.erase(eraseIt);
+	for (list<int>::iterator it = li.begin(); it != li.end(); it++)
+	{
+		cout << (*it) << endl;
+	}
+
+	List<int> li2;
+	List<int>::iterator eraseIt2;
+	for (int i = 0; i < 10; i++)
+	{
+		if (i == 5) eraseIt2 = li2.insert(li2.end(), i); // 이상황에선 end앞에 넣어짐
+		else li2.push_back(i);
+	}
+	li2.pop_back();
+	li2.erase(eraseIt2);
+	for (List<int>::iterator it = li2.begin(); it != li2.end(); it++)
+	{
+		cout << (*it) << endl;
+
+	}
 }

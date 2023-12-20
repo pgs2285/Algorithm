@@ -48,5 +48,38 @@ capacity는 배열의 잦은 이주를 방지하기 위해 미리 공간을 선�
 그밖에 reserve, size, clear, push_back 등 기존에 있던 vector클래스와 같이 구현했다.  
 아래 이미지는 기존에 vector와 구현한 Vector클래스의 비교이다.  
 ![vector](./GitHubImage/Vector.png)   
+#### 2-1.동적배열 구현하기.   
+동적배열은 기존에 vector로 구현이 되어있지만, 연습 겸 구현해 보았다.   
+구현된 벡터 클래스는 **[여기](./Algorithm/SelfModule/Vector.h)** 를 클릭하면 볼 수 있다.   
+capacity는 배열의 잦은 이주를 방지하기 위해 미리 공간을 선점해 두는 것으로 이전 크기의 * 1.5 를 채택했다.  
+그밖에 reserve, size, clear, push_back 등 기존에 있던 vector클래스와 같이 구현했다.  
+아래 이미지는 기존에 vector와 구현한 Vector클래스의 비교이다.  
+![vector](./GitHubImage/Vector)   
+#### 2-2. 연결리스트 구현하기.(양방향)  
+연결리스트는 기존에 list로 구현이 되어있지만, 연습 겸 구현해 보았다.
+구현된 리스트 클래스는 ** [여기](./Algorithm/SelfModule/List.h)** 를 클릭하면 볼 수 있다.  
+리스트 내부의 하나하나 요소를 구성하는 Node와,  
+추후 배회할때 필요한 Iterator,  
+Node들을 전체로 포함하는 List 클래스들로 구성을 했다.
+아래 이미지는 기존에 list와 구현한 List클래스의 비교이다.  
+![List](./GitHubImage/List.png)
 
 
+## 햇갈릴 만한것 Review
+### 1. (전위/후위)연산자 오버로딩. a++, ++a  
+연산자 오버로딩에서 ++의 위치에 따라 오버로딩하는 함수의 모양이 달라진다.  아래는 연결리스트를 구현하던 코드의 일부이다.  
+```cpp
+++it
+Iterator& operator--()
+{
+    _node = _node->_prev;
+    return *this;
+}
+// it ++
+Iterator& operator--(int)
+{
+    _node = _node->_prev;
+    return *this;
+}
+```  
+이런식으로 참조기호와 매개변수에 구분을 두어 전위와 후위연산자를 구분한다.
