@@ -20,7 +20,7 @@ int main()
 	{
 		cout << (*it) << endl;
 	}
-
+	cout << "자체 구현 List" << endl;
 	List<int> li2;
 	List<int>::iterator eraseIt2;
 	for (int i = 0; i < 10; i++)
