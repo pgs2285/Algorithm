@@ -1,38 +1,36 @@
-﻿// Algorithm.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
-
-#include <iostream>
-#include <list>
-#include "SelfModule/List.h"	
+﻿#include <iostream>
+#include <stack>
+#include "SelfModule/Stack.h"
 using namespace std;
 int main()
 {
-	list<int> li;
-	list<int>::iterator eraseIt;
-	for (int i = 0; i < 10; i++)
+	stack<int> s;
+	s.push(1);
+	s.push(2);
+	s.push(3);
+	while (s.empty() == false)
 	{
-		if (i == 5) eraseIt = li.insert(li.end(), i); // 이상황에선 end앞에 넣어짐
-		else li.push_back(i);
+		int data = s.top();
+		cout << "data : " << data << " size : " << s.size() << endl;
+		s.pop(); // c#,python 등 다른언어와 다른부분은 c++ 에서는 pop한다고 맨 위 요소를 return 하지 않는다.
 	}
-	li.pop_back();
-	li.erase(eraseIt);
-	for (list<int>::iterator it = li.begin(); it != li.end(); it++)
-	{
-		cout << (*it) << endl;
-	}
+	s.push(4);
+	int data = s.top();
+	cout << "data : " << data << " size : " << s.size() << endl;
 
-	List<int> li2;
-	List<int>::iterator eraseIt2;
-	for (int i = 0; i < 10; i++)
-	{
-		if (i == 5) eraseIt2 = li2.insert(li2.end(), i); // 이상황에선 end앞에 넣어짐
-		else li2.push_back(i);
-	}
-	li2.pop_back();
-	li2.erase(eraseIt2);
-	for (List<int>::iterator it = li2.begin(); it != li2.end(); it++)
-	{
-		cout << (*it) << endl;
+	cout << "자체 구현 Stack" << endl;
+	Stack<int> s2;
+	s2.push(1);
+	s2.push(2);
+	s2.push(3);
 
+	while (s2.empty() == false)
+	{
+		int data = s2.top();
+		cout << "data : " << data << " size : " << s2.size() << endl;
+		s2.pop(); // c#,python 등 다른언어와 다른부분은 c++ 에서는 pop한다고 맨 위 요소를 return 하지 않는다.
 	}
+	s2.push(4);
+	int data2 = s2.top();
+	cout << "data : " << data2 << " size : " << s2.size() << endl;
 }
