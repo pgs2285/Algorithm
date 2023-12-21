@@ -1,36 +1,32 @@
 ﻿#include <iostream>
-#include <stack>
-#include "SelfModule/Stack.h"
+#include <queue>
+#include "SelfModule/Queue.h"
 using namespace std;
 int main()
 {
-	stack<int> s;
-	s.push(1);
-	s.push(2);
-	s.push(3);
-	while (s.empty() == false)
-	{
-		int data = s.top();
-		cout << "data : " << data << " size : " << s.size() << endl;
-		s.pop(); // c#,python 등 다른언어와 다른부분은 c++ 에서는 pop한다고 맨 위 요소를 return 하지 않는다.
-	}
-	s.push(4);
-	int data = s.top();
-	cout << "data : " << data << " size : " << s.size() << endl;
+	queue<int> q;
+	for (int i = 0; i < 10; i++) q.push(i);
 
-	cout << "자체 구현 Stack" << endl;
-	Stack<int> s2;
-	s2.push(1);
-	s2.push(2);
-	s2.push(3);
-
-	while (s2.empty() == false)
+	while (q.empty() == false)
 	{
-		int data = s2.top();
-		cout << "data : " << data << " size : " << s2.size() << endl;
-		s2.pop(); // c#,python 등 다른언어와 다른부분은 c++ 에서는 pop한다고 맨 위 요소를 return 하지 않는다.
+		int value = q.front();
+		q.pop();
+		cout << value << endl;
 	}
-	s2.push(4);
-	int data2 = s2.top();
-	cout << "data : " << data2 << " size : " << s2.size() << endl;
+
+	int size = q.size();
+	cout << "size : " << size << endl;
+	cout << "자체구현 Queue" << endl;
+	queue<int> q2;
+	for (int i = 0; i < 1000; i++) q2.push(i);
+
+	while (q2.empty() == false)
+	{
+		int value = q2.front();
+		q2.pop();
+		cout << value << endl;
+	}
+
+	int size2 = q2.size();
+	cout << "size : " << size2 << endl;
 }
