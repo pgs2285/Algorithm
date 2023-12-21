@@ -99,7 +99,7 @@ for (int i = 0; i < _path.size() - 1; i++)
 }
 
 ```  
-이렇게 pop 될떄마다 _path[i+1]와 맞물려 겹친경로는 다 사라지게 된다.(즉, 왔다가 가는경우)  
+이렇게 pop 될떄마다 stack의 top이 _path[i+1]와 맞물려(즉 현재 기준으로 전후이니, pop될시 이 _path[i-n] & _path[i+n] 끼리 비교하는것과 다름없다.) 겹친경로는 다 사라지게 된다.
 결과는 아래와 같다. 확실히 개선이 된것을 볼 수 있다.  
 ![revise](./GitHubImage/RightHandOnWallRevise.gif)  
 
