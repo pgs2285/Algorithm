@@ -77,7 +77,7 @@ Node들을 전체로 포함하는 List 클래스들로 구성을 했다.
 연산자 오버로딩에서 ++의 위치에 따라 오버로딩하는 함수의 모양이 달라진다.  아래는 연결리스트를 구현하던 코드의 일부이다.  
 ```cpp
 ++it
-Iterator& operator--()
+Iterator operator--()
 {
     _node = _node->_prev;
     return *this;
