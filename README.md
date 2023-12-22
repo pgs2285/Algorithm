@@ -226,9 +226,8 @@ DFS의 구현부는 **[여기(DFS.cpp)](/Algorithm/SelfModule/DFS.cpp)**를 클�
 연결된 목록을 따로 adjacent에서 관리해 재귀함수로 구현하였다.  
 DFS dfs로 선언 후 **dfs.visit(시작노드)**를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
 만약 노드가 동떨어져 있으면(아래 이미지에서 5번 노트) DfsEtc를 호출하면 나머지 노드들을 찾아서 DFS를 진행한다.  
-결과는 아래와 같다.  
-![DFS](./GitHubImage/DFS-1.png)   
-
+결과는 아래와 같다.   
+<img src="./GitHubImage/DFS-1.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 ## 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.
