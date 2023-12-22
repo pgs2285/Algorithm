@@ -220,11 +220,11 @@ vector<vector<int>> adjacent =
 같이 표현도 가능하다.  
 
 ### 3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기    
-입구에서 깊은것부터 탐색하는 방법이다. 
-구현한 DFS 해더파일 선언부는 **[여기(DFS.h)](./Algorithm/SelfModule/DFS.h)**를 클릭하면 볼 수 있고,  
+입구에서 깊은것부터 탐색하는 방법이다.   
+구현한 DFS 해더파일 선언부는 **[여기(DFS.h)](./Algorithm/SelfModule/DFS.h)**를 클릭하면 볼 수 있고,   
 DFS의 구현부는 **[여기(DFS.cpp)](/Algorithm/SelfModule/DFS.cpp)**를 클릭하면 볼 수 있다.  
 연결된 목록을 따로 adjacent에서 관리해 재귀함수로 구현하였다.  
-DFS dfs로 선언 후 dfs.visit(시작노드)를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
+DFS dfs로 선언 후 **dfs.visit(시작노드)**를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
 만약 노드가 동떨어져 있으면(아래 이미지에서 5번 노트) DfsEtc를 호출하면 나머지 노드들을 찾아서 DFS를 진행한다.  
 결과는 아래와 같다.  
 ![DFS](./GitHubImage/DFS-1.png)   
