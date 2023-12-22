@@ -18,6 +18,7 @@
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
 - [1. 전위/후위 연산자 오버로딩](#1-전위후위연산자-오버로딩)
+- [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
 
 ## 1.프로젝트 준비
 
@@ -132,7 +133,7 @@ for (int i = 0; i < _path.size() - 1; i++)
 
 ## 그래프 기초
 
-### 특징
+### 3 - 1. 그래프 특징 및 구현
 
 그래프는 현실 세계의 사물이나 추상적인 개념간의 연결관계를 표현한다.
 
@@ -215,7 +216,17 @@ vector<vector<int>> adjacent =
 }
 ```
 
-같이 표현도 가능하다.
+같이 표현도 가능하다.  
+
+### 3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기    
+입구에서 깊은것부터 탐색하는 방법이다. 
+구현한 DFS 해더파일 선언부는 **[여기(DFS.h)](./Algorithm/SelfModule/DFS.h)**를 클릭하면 볼 수 있고,  
+DFS의 구현부는 **[여기(DFS.cpp)](/Algorithm/SelfModule/DFS.cpp)**를 클릭하면 볼 수 있다.  
+연결된 목록을 따로 adjacent에서 관리해 재귀함수로 구현하였다.  
+DFS dfs로 선언 후 dfs.visit(시작노드)를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
+만약 노드가 동떨어져 있으면(아래 이미지에서 5번 노트) DfsEtc를 호출하면 나머지 노드들을 찾아서 DFS를 진행한다.  
+결과는 아래와 같다.  
+![DFS](./GitHubImage/DFS-1.png)   
 
 ## 햇갈릴 만한것 Review
 
@@ -239,3 +250,9 @@ Iterator& operator--(int)
 ```
 
 이런식으로 참조기호와 매개변수에 구분을 두어 전위와 후위연산자를 구분한다.
+
+### 2. vector의 resize vs reserve  
+같은 기능을 하는 함수는 아니지만, 초기 배열 크기를 할당할때 두가지 모두 사용해도 되므로, 그 상황에서 차이점을 서술한다.  
+resize는 할당후 초기화 한다. 즉 size를 호출했을때 변경 후 사이즈가 출력되고, []로 바로 접근할 수도 있다.
+reserve는 메모리에 할당만 하고 초기화는 하지 않는다. 즉 capacity()를 호출 하면 크기를 볼 순 있지만, size()호출시 이전과 같은값이 호출될것이다.  
+크기를 미리 할당한다는 면에서만 비추어 보면 reserve가 resize보다 빠를수 밖에 없다.  

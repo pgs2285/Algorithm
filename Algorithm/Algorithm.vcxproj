@@ -184,9 +184,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="SelfModule\DFS.cpp" />
     <ClCompile Include="SelfModule\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\DFS.h" />
     <ClInclude Include="SelfModule\List.h" />
     <ClInclude Include="SelfModule\Queue.h" />
     <ClInclude Include="SelfModule\Stack.h" />
