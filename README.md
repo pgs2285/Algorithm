@@ -238,7 +238,7 @@ DFS의 구현부는 **[여기(BFS.cpp)](/Algorithm/SelfModule/BFS.cpp)**를 클�
 BFS 헤더파일 선언후  **bfs.visit(시작노드)**를 지정하면 해당 노드부터 BFS를 진행하게 제작했다.  
 만약 노드가 동떨어져 있으면(시작점에서 타고가도 연결되어 있지 않으면) discoverAll를 호출하면 나머지 노드들을 찾아서 BFS를 진행한다.  
 결과는 아래와 같다.  
-<img src="./GitHubImage/bfs.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="dfs"></img> 
+<img src="./GitHubImage/bfs.png" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="dfs"></img> 
 ## 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.
