@@ -224,13 +224,20 @@ vector<vector<int>> adjacent =
 구현한 DFS 해더파일 선언부는 **[여기(DFS.h)](./Algorithm/SelfModule/DFS.h)**를 클릭하면 볼 수 있고,   
 DFS의 구현부는 **[여기(DFS.cpp)](/Algorithm/SelfModule/DFS.cpp)**를 클릭하면 볼 수 있다.  
 연결된 목록을 따로 adjacent에서 관리해 재귀함수로 구현하였다.  
-DFS dfs로 선언 후 **dfs.visit(시작노드)**를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
-만약 노드가 동떨어져 있으면(아래 이미지에서 5번 노트) DfsEtc를 호출하면 나머지 노드들을 찾아서 DFS를 진행한다.  
+DFS 헤더파일 선언 후 **dfs.visit(시작노드)**를 지정하면 해당 노드부터 DFS를 진행하게 제작했다.  
+만약 노드가 동떨어져 있으면(시작점에서 타고가도 연결되어 있지 않으면) DfsEtc를 호출하면 나머지 노드들을 찾아서 DFS를 진행한다.  
 결과는 아래와 같다.   
-<img src="./GitHubImage/DFS-1.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>  
+<img src="./GitHubImage/DFS-1.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="dfs"></img>  
 
 ### 3-3. BFS(너비 우선 탐색, Breath First Search) 구현하기  
-DFS와는 다르게 가까운 노드부터 방문한다는게 특징이다.
+DFS와는 다르게 가까운 노드부터 방문한다는게 특징이다.  
+구현한 DFS 해더파일 선언부는 **[여기(BFS.h)](./Algorithm/SelfModule/BFS.h)**를 클릭하면 볼 수 있고,   
+DFS의 구현부는 **[여기(BFS.cpp)](/Algorithm/SelfModule/BFS.cpp)**를 클릭하면 볼 수 있다.  
+연결된 정점들은 무한루프를 통해서 탐색한다.  
+BFS 헤더파일 선언후  **bfs.visit(시작노드)**를 지정하면 해당 노드부터 BFS를 진행하게 제작했다.  
+만약 노드가 동떨어져 있으면(시작점에서 타고가도 연결되어 있지 않으면) discoverAll를 호출하면 나머지 노드들을 찾아서 BFS를 진행한다.  
+결과는 아래와 같다.  
+<img src="./GitHubImage/bfs.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="dfs"></img> 
 ## 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.
