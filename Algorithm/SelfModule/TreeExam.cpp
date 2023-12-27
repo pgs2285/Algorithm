@@ -1,46 +1,45 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
-#include "SelfModule/Dijkstra.h"
 using namespace std;
 using NodeRef = std::shared_ptr<struct Node>;
 struct Node
 {
 	Node(const string& data) : data(data) {}
-	
+
 	string data;
 	vector<NodeRef> children;
 };
 
 NodeRef CreateTree()
 {
-	NodeRef root = make_shared<Node>("ë£¨íŠ¸");
+	NodeRef root = make_shared<Node>("·çÆ®");
 	{
-		NodeRef node = make_shared<Node>("ìš”ì†Œ 1");
+		NodeRef node = make_shared<Node>("¿ä¼Ò 1");
 		root->children.push_back(node);
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„1");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ1");
 			node->children.push_back(leaf);
 		}
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„2");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ2");
 			node->children.push_back(leaf);
 		}
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„3");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ3");
 			node->children.push_back(leaf);
 		}
-		NodeRef node2 = make_shared<Node>("ìš”ì†Œ 2");
+		NodeRef node2 = make_shared<Node>("¿ä¼Ò 2");
 		root->children.push_back(node2);
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„4");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ4");
 			node2->children.push_back(leaf);
 		}
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„5");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ5");
 			node2->children.push_back(leaf);
 		}
 		{
-			NodeRef leaf = make_shared<Node>("ë¦¬í”„6");
+			NodeRef leaf = make_shared<Node>("¸®ÇÁ6");
 			node2->children.push_back(leaf);
 		}
 	}
@@ -52,7 +51,7 @@ void PrintTree(NodeRef root, int depth)
 	for (int i = 0; i < depth; i++) cout << "-";
 	cout << root->data << endl;
 	for (NodeRef& child : root->children)
-		PrintTree(child,depth + 1);
+		PrintTree(child, depth + 1);
 }
 
 int GetHeight(NodeRef root)
@@ -60,15 +59,15 @@ int GetHeight(NodeRef root)
 	int height = 1;
 	for (NodeRef& child : root->children)
 	{
-		height = max(height,GetHeight(child) + 1);
+		height = max(height, GetHeight(child) + 1);
 	}
 	return height;
 }
-
+/*
 int main()
 {
 	NodeRef root = CreateTree();
-	PrintTree(root,0);
-	cout << "íŠ¸ë¦¬ì˜ ë†’ì´ : " << GetHeight(root);
+	PrintTree(root, 0);
+	cout << "Æ®¸®ÀÇ ³ôÀÌ : " << GetHeight(root);
 
-}
+}*/

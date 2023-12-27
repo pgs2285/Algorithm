@@ -10,16 +10,18 @@
   - [ 2 - 5. 오른손의 법칙 개선하기](#2-5-오른손의-법칙-개선하기)
 - [3.그래프의 기초](#그래프-기초)
   - [ 3 - 1. 그래프 이론 및 코드로 구현하는법 알아보기](#그래프-기초)  
-    -[ 3 - 1 - a. 그래프 구현 {통째로 구현하기}](#통째로-관리하는-방법)  
-    -[ 3 - 1 - b. 그래프 구현 {연결된 목록을 따로 관리하기}](#연결된-목록을-따로-관리하는-방법)  
-    -[ 3 - 1 - c. 그래프 구현 {행렬을 이용해 관리하기}](#행렬을-이용해-관리하는-방법)  
-    -[ 3 - 1 - d. 그래프 구현 {가중치가 있는그래프}](#가중치가-있는그래프)  
+    - -[ 3 - 1 - a. 그래프 구현 {통째로 구현하기}](#통째로-관리하는-방법)  
+    - -[ 3 - 1 - b. 그래프 구현 {연결된 목록을 따로 관리하기}](#연결된-목록을-따로-관리하는-방법)  
+    - -[ 3 - 1 - c. 그래프 구현 {행렬을 이용해 관리하기}](#행렬을-이용해-관리하는-방법)  
+    - -[ 3 - 1 - d. 그래프 구현 {가중치가 있는그래프}](#가중치가-있는그래프)  
   - [ 3 - 2. DFS(깊이 우선 탐색, Depth First Search) 구현하기](#3-2-dfs깊이-우선-탐색-depth-first-search-구현하기)
   - [ 3 - 3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
   - [ 3 - 4. BFS를 이용한 길찾기](#3-4-bfs를-이용한-길찾기-구현)  
   - [ 3 - 5. 다익스트라 구현하기](#3-5-다익스트라-알고리즘)
 - [4.힙과 우선순위 큐](#4-힙과-우선순위-큐)
   - [4 -1 트리 기초](#4-1-트리-기초)
+    - [4-1-2 트리생성](#)
+    - [4-2-2 트리호출](#)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -283,6 +285,60 @@ BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던
 
 ### 4 -1 트리 기초
 
+트리란 계층적 구조를 갖는 데이터를 표현하기 위한 자료구조이다
+
+- 노드(Node): 데이터를 표현
+
+- 간선(Edge): 노드의 계층구조를 표현하기 위해 사용
+
+
+
+#### 4-1-1 트리 생성
+
+트리는 아래와 같이 생성 할 수 있다.
+
+```cpp
+using NodeRef = std::shared_ptr<struct Node>;
+struct Node
+{
+	Node(const string& data) : data(data) {}
+	
+	string data;
+	vector<NodeRef> children;
+};
+
+NodeRef CreateTree()
+{
+	NodeRef root = make_shared<Node>("루트");
+	{
+		NodeRef node = make_shared<Node>("요소 1");
+		root->children.push_back(node);
+		{
+			NodeRef leaf = make_shared<Node>("리프1");
+			node->children.push_back(leaf);
+		}
+....(생략)
+}
+```
+
+#### 4-1-2 트리 출력
+
+호출은 재귀함수를 이용하면 된다.   
+
+```cpp
+void PrintTree(NodeRef root, int depth)
+{
+	for (int i = 0; i < depth; i++) cout << "-";
+	cout << root->data << endl;
+	for (NodeRef& child : root->children)
+		PrintTree(child,depth + 1);
+}
+```
+
+Tree에 대한 예시코드는 [여기(TreeExam.cpp)](./SelfModule/TreeExam.cpp)를 클릭하면 되고, 결과는 아래같이 나온다.  
+
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/Tree.png" alt="dfs" data-align="center" width="395">
+
 ## 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.
@@ -312,3 +368,20 @@ Iterator& operator--(int)
 resize는 할당후 초기화 한다. 즉 size를 호출했을때 변경 후 사이즈가 출력되고, []로 바로 접근할 수도 있다.
 reserve는 메모리에 할당만 하고 초기화는 하지 않는다. 즉 capacity()를 호출 하면 크기를 볼 순 있지만, size()호출시 이전과 같은값이 호출될것이다.  
 크기를 미리 할당한다는 면에서만 비추어 보면 reserve가 resize보다 빠를수 밖에 없다.  
+
+
+
+
+
+### shared_ptr
+
+c++ 11에서 추가된 스마트포인터 클래스중 하나이다.
+
+포인터를 더 사용하지 않는경우 메모리를 자동으로 해제해주는 특징이 있어 memory leak 문제를 방지할 수 있다.
+
+```cpp
+std::shared_ptr<int> p1 = new int(); // 컴파일 에러
+std::shared_ptr<int> p1 = std::make_shared<int>(); //성
+```
+
+위 예제에서 확인하듯이 shared_ptr객체에 포인터를 바로 대입하면 컴파일시 에러가 발생한다. 왜냐하면 shared_ptr 생성자의 아규먼트는 명시적이여햐 하기떄문이다.

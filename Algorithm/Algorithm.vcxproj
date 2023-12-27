@@ -187,6 +187,7 @@
     <ClCompile Include="SelfModule\Dijkstra.cpp" />
     <ClCompile Include="SelfModule\BFS.cpp" />
     <ClCompile Include="SelfModule\DFS.cpp" />
+    <ClCompile Include="SelfModule\TreeExam.cpp" />
     <ClCompile Include="SelfModule\Vector.h" />
   </ItemGroup>
   <ItemGroup>

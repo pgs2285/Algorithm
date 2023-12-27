@@ -30,6 +30,9 @@
     <ClCompile Include="SelfModule\Dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SelfModule\TreeExam.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SelfModule\List.h">
