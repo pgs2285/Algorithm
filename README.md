@@ -263,25 +263,18 @@ BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던
 ### 3-5. 다익스트라 알고리즘
 
 위에서 BFS는 길찾기를 사용할때 각 간선들이 동일한 비용을 갖고 있다고 가정해 만드는데 큰 문제는 없었다.  
-
 아래 이미지처럼 간선마다 비용(가중치, 거리)들이 붙기 시작한다면 다른 알고리즘을 알아봐야한다.
-
 <img title="px(픽셀) 크기 설정" src="./GitHubImage/costGraph.png" alt="dfs" width="" height="" data-align="center"> 이 이미지에서 가장 0번에서 4번까지 가는 가장 저코스트의 경로는 0->1->3->4 이다.
 
 1. 출발노드 설정후 최소비용 저장.
-
 2. 이동하고 그 다음 노드까지 이동하는 비용과, 이전에 있던 cost값 비교 후 작은값을 넣어준다.(갱신)
-
 3. 반복
-
 위와같은 순서대로 구현해줄 것이다.   
 
 구현한 다익스트라 해더파일 선언부는 **[여기(Dijkstra.h)](./Algorithm/SelfModule/Dijkstra.h)**를 클릭하면 볼 수 있고,  
 다익스트라의 구현부는 **[여기(Dijkstra.cpp)](/Algorithm/SelfModule/Dijkstra.cpp)**를 클릭하면 볼 수 있다.  
-
 구현된 결과는 다음과 같다.  
-
-<img title="px(픽셀) 크기 설정" src="./GitHubImage/dijkstra.png" alt="dfs" data-align="center" width="411">
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/dijkstra.png" alt="dfs" data-align="center" width="411">  
 
 ## 햇갈릴 만한것 Review
 
