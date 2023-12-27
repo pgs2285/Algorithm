@@ -18,6 +18,8 @@
   - [ 3 - 3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
   - [ 3 - 4. BFS를 이용한 길찾기](#3-4-bfs를-이용한-길찾기-구현)  
   - [ 3 - 5. 다익스트라 구현하기](#3-5-다익스트라-알고리즘)
+- [4.힙과 우선순위 큐](#4-힙과-우선순위-큐)
+  - [4 -1 트리 기초](#4-1-트리-기초)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -270,12 +272,16 @@ BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던
 1. 출발노드 설정후 최소비용 저장.
 2. 이동하고 그 다음 노드까지 이동하는 비용과, 이전에 있던 cost값 비교 후 작은값을 넣어준다.(갱신)
 3. 반복
-위와같은 순서대로 구현해줄 것이다.   
+   위와같은 순서대로 구현해줄 것이다.   
 
 구현한 다익스트라 해더파일 선언부는 **[여기(Dijkstra.h)](./Algorithm/SelfModule/Dijkstra.h)**를 클릭하면 볼 수 있고,  
 다익스트라의 구현부는 **[여기(Dijkstra.cpp)](/Algorithm/SelfModule/Dijkstra.cpp)**를 클릭하면 볼 수 있다.  
 구현된 결과는 다음과 같다.  
-<img title="px(픽셀) 크기 설정" src="./GitHubImage/dijkstra.png" alt="dfs" data-align="center" width="411">  
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/dijkstra.png" alt="dfs" data-align="center" width="411">
+
+## 4.힙과 우선순위 큐
+
+### 4 -1 트리 기초
 
 ## 햇갈릴 만한것 Review
 
