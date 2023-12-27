@@ -184,11 +184,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="SelfModule\Dijkstra.cpp" />
     <ClCompile Include="SelfModule\BFS.cpp" />
     <ClCompile Include="SelfModule\DFS.cpp" />
     <ClCompile Include="SelfModule\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\Dijkstra.h" />
     <ClInclude Include="SelfModule\BFS.h" />
     <ClInclude Include="SelfModule\DFS.h" />
     <ClInclude Include="SelfModule\List.h" />

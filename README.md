@@ -52,7 +52,7 @@ _여기서 생성한 미로는 당장은 아니고, 추후 길찾기 알고리�
 4. 이후 무한 루프.
 
 구현된 코드는 [./Maze/Player.cpp](./Maze/Player.cpp) 의 RightHandOnWall함수에서 확인 할 수 있으며 결과는 다음과 같다.  
-![오른손법칙](./GitHubImage/RightHandOnWall.gif)
+<img src="./GitHubImage/RightHandOnWall.gif" title="" alt="오른손법칙" data-align="center">
 
 ## 2. 선형자료 기초
 
@@ -109,7 +109,7 @@ Node들을 전체로 포함하는 List 클래스들로 구성을 했다.
 기존에 동적배열은 이미 구현해봤으므로, vector함수를 사용해 구현했다. 이런식으로 구현하면 동적배열의 단점이었던 중간 삽입삭제 시 O(n)의 시간복잡도를 갖는다는
 문제를 해결 할 수 있다.  
 아래 이미지는 기존 큐와 구현한 Queue클래스의 비교이다.  
-![Stack](./GitHubImage/Queue.png)
+<img src="./GitHubImage/Queue.png" title="" alt="Stack" data-align="center">
 
 #### 2-5. 오른손의 법칙 개선하기
 
@@ -131,7 +131,7 @@ for (int i = 0; i < _path.size() - 1; i++)
 
 이렇게 pop 될떄마다 stack의 top이 _path[i+1]와 맞물려(즉 현재 기준으로 전후이니, pop될시 이 _path[i-n] & _path[i+n] 끼리 비교하는것과 다름없다.) 겹친경로는 다 사라지게 된다.
 결과는 아래와 같다. 확실히 개선이 된것을 볼 수 있다.  
-![revise](./GitHubImage/RightHandOnWallRevise.gif)
+<img src="./GitHubImage/RightHandOnWallRevise.gif" title="" alt="revise" data-align="center">
 
 ## 그래프 기초
 
@@ -154,7 +154,7 @@ for (int i = 0; i < _path.size() - 1; i++)
 3. 행렬을 이용해 관리
 4. 가중치가 있는 그래프
 
-![Graph](./GitHubImage/question1.png)
+<img src="./GitHubImage/question1.png" title="" alt="Graph" data-align="center">
 
 ##### 통째로 관리하는 방법
 
@@ -220,7 +220,8 @@ vector<vector<int>> adjacent =
 
 같이 표현도 가능하다.  
 
-### 3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기    
+### 3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기
+
 입구에서 깊은것부터 탐색하는 방법이다.   
 구현한 DFS 해더파일 선언부는 **[여기(DFS.h)](./Algorithm/SelfModule/DFS.h)**를 클릭하면 볼 수 있고,   
 DFS의 구현부는 **[여기(DFS.cpp)](/Algorithm/SelfModule/DFS.cpp)**를 클릭하면 볼 수 있다.  
@@ -230,7 +231,8 @@ DFS 헤더파일 선언 후 **dfs.visit(시작노드)**를 지정하면 해당 �
 결과는 아래와 같다.   
 <img src="./GitHubImage/DFS-1.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="dfs"></img>  
 
-### 3-3. BFS(너비 우선 탐색, Breath First Search) 구현하기  
+### 3-3. BFS(너비 우선 탐색, Breath First Search) 구현하기
+
 DFS와는 다르게 가까운 노드부터 방문한다는게 특징이다.  
 구현한 DFS 해더파일 선언부는 **[여기(BFS.h)](./Algorithm/SelfModule/BFS.h)**를 클릭하면 볼 수 있고,   
 DFS의 구현부는 **[여기(BFS.cpp)](/Algorithm/SelfModule/BFS.cpp)**를 클릭하면 볼 수 있다.  
@@ -238,21 +240,48 @@ DFS의 구현부는 **[여기(BFS.cpp)](/Algorithm/SelfModule/BFS.cpp)**를 클�
 BFS 헤더파일 선언후  **bfs.visit(시작노드)**를 지정하면 해당 노드부터 BFS를 진행하게 제작했다.  
 만약 노드가 동떨어져 있으면(시작점에서 타고가도 연결되어 있지 않으면) discoverAll를 호출하면 나머지 노드들을 찾아서 BFS를 진행한다.  
 결과는 아래와 같다.  
-<img src="./GitHubImage/bfs.png" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="dfs"></img>  
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/bfs.png" alt="dfs" width="" height="" data-align="center">  
 
-### 3-4. BFS를 이용한 길찾기 구현.  
+### 3-4. BFS를 이용한 길찾기 구현.
+
 위에서 했던 우수법(오른손의 법칙)은 길을 찾긴 하진만 최단경로를 보장하지 못할 뿐더러, 미로가 복잡할 경우 길을 찾지 못하는 경우도 있다.  
 BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던 BFS는 인접노드와, 정점들의 정보를 따로 입력해줘야했지만, 미로에서는 맵의 구조를 안다면 그래프로 표현이 가능하다.  
 구현 알고리즘은 다음과 같다.   
->	 bfs
->	 1. 처음 방문한 곳을 큐에 넣어주고 발견 check,
->	 2. 무한 루프를 돌면서 순회한다. 상하좌우 갈 수 있나 체크 
->	 2-1. 갈 수 없으면 continue.
->	 2-2. 이미 발견한 지역이면 continue.
->	 3. bfs순회 후 도착했으면 break 하고 parent를 역참조 하여 간다.  
-구현된 코드는 [./Maze/Player.cpp](./Maze/Player.cpp) 의 Bfs함수에서 확인 할 수 있으며 결과는 다음과 같다.  
-<img src="./GitHubImage/bfsPathFinding.gif" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="bfs"></img>   
 
+>     bfs
+>     1. 처음 방문한 곳을 큐에 넣어주고 발견 check,
+>     2. 무한 루프를 돌면서 순회한다. 상하좌우 갈 수 있나 체크 
+>     2-1. 갈 수 없으면 continue.
+>     2-2. 이미 발견한 지역이면 continue.
+>     3. bfs순회 후 도착했으면 break 하고 parent를 역참조 하여 간다.  
+> 
+> 구현된 코드는 [./Maze/Player.cpp](./Maze/Player.cpp) 의 Bfs함수에서 확인 할 수 있으며 결과는 다음과 같다.  
+> <img title="px(픽셀) 크기 설정" src="./GitHubImage/bfsPathFinding.gif" alt="bfs" width="" height="" data-align="center">   
+
+### 3-5. 다익스트라 알고리즘
+
+위에서 BFS는 길찾기를 사용할때 각 간선들이 동일한 비용을 갖고 있다고 가정해 만드는데 큰 문제는 없었다.  
+
+아래 이미지처럼 간선마다 비용(가중치, 거리)들이 붙기 시작한다면 다른 알고리즘을 알아봐야한다.
+
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/costGraph.png" alt="dfs" width="" height="" data-align="center"> 이 이미지에서 가장 0번에서 4번까지 가는 가장 저코스트의 경로는 0->1->3->4 이다.
+
+1.  출발노드 설정후 최소비용 저장.
+
+2.  이동하고 그 다음 노드까지 이동하는 비용과, 이전에 있던 cost값 비교 후 작은값을 넣어준다.(갱신)
+
+3. 반복
+
+
+
+위와같은 순서대로 구현해줄 것이다.   
+
+구현한 다익스트라 해더파일 선언부는 **[여기(Dijkstra.h)](./Algorithm/SelfModule/Dijkstra.h)**를 클릭하면 볼 수 있고,  
+다익스트라의 구현부는 **[여기(Dijkstra.cpp)](/Algorithm/SelfModule/Dijkstra.cpp)**를 클릭하면 볼 수 있다.  
+
+구현된 결과는 다음과 같다.  
+
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/dijkstra.png" alt="dfs" data-align="center" width="411">
 
 ## 햇갈릴 만한것 Review
 
@@ -277,7 +306,8 @@ Iterator& operator--(int)
 
 이런식으로 참조기호와 매개변수에 구분을 두어 전위와 후위연산자를 구분한다.
 
-### 2. vector의 resize vs reserve  
+### 2. vector의 resize vs reserve
+
 같은 기능을 하는 함수는 아니지만, 초기 배열 크기를 할당할때 두가지 모두 사용해도 되므로, 그 상황에서 차이점을 서술한다.  
 resize는 할당후 초기화 한다. 즉 size를 호출했을때 변경 후 사이즈가 출력되고, []로 바로 접근할 수도 있다.
 reserve는 메모리에 할당만 하고 초기화는 하지 않는다. 즉 capacity()를 호출 하면 크기를 볼 순 있지만, size()호출시 이전과 같은값이 호출될것이다.  

@@ -1,27 +1,22 @@
 ﻿#include <iostream>
 #include <vector>
-#include "SelfModule/BFS.h"
+#include "SelfModule/Dijkstra.h"
 using namespace std;
 int main()
 {
-	std::vector<Vertex> verteices;
-	verteices.resize(6);
-	std::vector<std::vector<int>> adjacent = std::vector<std::vector<int>>(6);
-	adjacent[0].push_back(1);
-	adjacent[0].push_back(3);
-	adjacent[1].push_back(0);
-	adjacent[1].push_back(2);
-	adjacent[1].push_back(3);
-	adjacent[3].push_back(4);
-	adjacent[5].push_back(4);
-	BFS bfs1(verteices,adjacent);
-	bfs1.discover(0); // 간선간의 접점을 통해 탐색하는 방법
-	bfs1.discoverAll();
-	// 만약 혼자 끊긴 노드가 있다면 그것만 실행한다.
-	for (int i = 0; i < verteices.size() - 1; i++)
-	{
-		cout << i << "번 노드는" << bfs1.parent[i] << "에 의해 발견되었고 시작점에서는" << bfs1.distance[i] << "만큼 떨어져 있다" << endl;
-	}
-	
-	
+	std::vector<Vertex> vertices;
+	vertices.resize(6);
+
+	vector<vector<int>> adjacent = vector<vector<int>>(6, vector<int>(6, -1));
+	adjacent[0][1] = 15; // 0->1
+	adjacent[0][3] = 35;
+	adjacent[1][0] = 15;
+	adjacent[1][2] = 5;
+	adjacent[1][3] = 10;
+	adjacent[3][4] = 5;
+	adjacent[5][4] = 5;
+
+	Dijkstra d(vertices, adjacent);
+	d.findPath(0);
+
 }
