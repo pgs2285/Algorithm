@@ -27,7 +27,7 @@
 
 - [1. 전위/후위 연산자 오버로딩](#1-전위후위연산자-오버로딩)
 - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
-- [3. shared_ptr](#3-shared-ptr)
+- [3. shared_ptr](#3-shared_ptr)
 
 ## 1.프로젝트 준비
 
