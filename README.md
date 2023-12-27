@@ -238,7 +238,22 @@ DFS의 구현부는 **[여기(BFS.cpp)](/Algorithm/SelfModule/BFS.cpp)**를 클�
 BFS 헤더파일 선언후  **bfs.visit(시작노드)**를 지정하면 해당 노드부터 BFS를 진행하게 제작했다.  
 만약 노드가 동떨어져 있으면(시작점에서 타고가도 연결되어 있지 않으면) discoverAll를 호출하면 나머지 노드들을 찾아서 BFS를 진행한다.  
 결과는 아래와 같다.  
-<img src="./GitHubImage/bfs.png" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="dfs"></img> 
+<img src="./GitHubImage/bfs.png" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="dfs"></img>  
+
+### 3-4. BFS를 이용한 길찾기 구현.  
+위에서 했던 우수법(오른손의 법칙)은 길을 찾긴 하진만 최단경로를 보장하지 못할 뿐더러, 미로가 복잡할 경우 길을 찾지 못하는 경우도 있다.  
+BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던 BFS는 인접노드와, 정점들의 정보를 따로 입력해줘야했지만, 미로에서는 맵의 구조를 안다면 그래프로 표현이 가능하다.  
+구현 알고리즘은 다음과 같다.   
+>	 bfs
+>	 1. 처음 방문한 곳을 큐에 넣어주고 발견 check,
+>	 2. 무한 루프를 돌면서 순회한다. 상하좌우 갈 수 있나 체크 
+>	 2-1. 갈 수 없으면 continue.
+>	 2-2. 이미 발견한 지역이면 continue.
+>	 3. bfs순회 후 도착했으면 break 하고 parent를 역참조 하여 간다.  
+구현된 코드는 [./Maze/Player.cpp](./Maze/Player.cpp) 의 Bfs함수에서 확인 할 수 있으며 결과는 다음과 같다.  
+<img src="./GitHubImage/bfsPathFinding.gif" width="50%" height="50%" title="px(픽셀) 크기 설정" alt="bfs"></img>   
+
+
 ## 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.

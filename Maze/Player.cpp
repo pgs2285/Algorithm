@@ -10,7 +10,8 @@ void Player::Init(Board* board)
 	Pos dest = board->GetExitPos();
 
 	// 오른손의 법칙
-	RightHandOnWall(_pos, dest);
+	//RightHandOnWall(_pos, dest);
+	Bfs(pos, dest);
 }
 
 void Player::Update(uint64 deltaTick)
@@ -25,6 +26,7 @@ void Player::Update(uint64 deltaTick)
 			_sumTick = 0;
 
 			_pos = _path[_pathIndex];
+			cout <<"BFS / X : " << _pos.x << " Y : " << _pos.y;
 			_pathIndex++;
 		}
 	}
@@ -99,4 +101,63 @@ bool Player::CanGo(Pos pos)
 {
 	TileType tileType = _board->GetTileType(pos);
 	return tileType == TileType::EMPTY;
+}
+
+void Player::Bfs(Pos pos, Pos dest)
+{
+	Pos front[4] =
+	{
+		Pos { -1, 0 }, // up
+		Pos { 0, -1 }, // left
+		Pos { 1, 0 }, // down
+		Pos { 0, 1}, // right
+	};
+	_path.clear();
+	_path.push_back(pos);
+	// bfs
+	// 1. 처음 방문한 곳을 큐에 넣어주고 발견 check,
+	// 2. 무한 루프를 돌면서 순회한다. 상하좌우 갈 수 있나 체크 
+	// 2-1. 갈 수 없으면 continue.
+	// 2-2. 이미 발견한 지역이면 continue.
+	// 3. bfs순회 후 도착했으면 break 하고 parent를 역참조 하여 간다.
+	const int32 size = _board->GetSize();
+	vector<vector<bool>> discovered(size, vector<bool>(size,false));
+	map<Pos, Pos> parent; // Parent[A] = [B] -> A의 부모는 B이다.
+	queue<Pos> q;
+
+	q.push(pos);  // 처음 방문넣어주고,
+	discovered[pos.y][pos.x] = true;
+	parent[pos] = pos;
+
+	while (q.empty() == false)
+	{
+		pos = q.front();
+		q.pop();
+
+		if (pos == dest) 
+			break;
+
+		for (int dir = 0; dir < 4; dir++)
+		{
+			Pos nextPos = pos + front[dir];
+			// 2-1 갈수 있나 체크
+			if (CanGo(nextPos) == false) continue;
+			// 2-2  이미 발견했나 체크
+			if (discovered[nextPos.y][nextPos.x]) continue;
+
+			q.push(nextPos);
+			discovered[nextPos.y][nextPos.x] = true;
+			parent[nextPos] = pos;
+		}
+		_path.clear();
+		pos = dest;
+		while (true)
+		{
+			_path.push_back(pos);
+
+			if (pos == parent[pos]) break;
+			pos = parent[pos];
+		}
+		std::reverse(_path.begin(), _path.end());
+	}
 }

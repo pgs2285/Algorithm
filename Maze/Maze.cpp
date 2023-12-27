@@ -27,6 +27,7 @@ int main()
         board.Render();
         player.Update(deltaTick);
 
+
     }
 }
 
