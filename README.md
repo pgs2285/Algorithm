@@ -16,6 +16,7 @@
     -[ 3 - 1 - d. 그래프 구현 {가중치가 있는그래프}](#가중치가-있는그래프)  
   - [ 3 - 2. DFS(깊이 우선 탐색, Depth First Search) 구현하기](#3-2-dfs깊이-우선-탐색-depth-first-search-구현하기)
   - [ 3 - 3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
+  - [ 3 - 4. BFS를 이용한 길찾기) ] (#3-4-bfs를-이용한-길찾기-구현)  
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
