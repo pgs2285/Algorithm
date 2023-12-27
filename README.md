@@ -18,15 +18,16 @@
   - [ 3 - 3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
   - [ 3 - 4. BFS를 이용한 길찾기](#3-4-bfs를-이용한-길찾기-구현)  
   - [ 3 - 5. 다익스트라 구현하기](#3-5-다익스트라-알고리즘)
-- [4.힙과 우선순위 큐](#4-힙과-우선순위-큐)
-  - [4 -1 트리 기초](#4-1-트리-기초)
-    - [4-1-2 트리생성](#)
-    - [4-2-2 트리호출](#)
+- [4.힙과 우선순위 큐](#4힙과-우선순위-큐)
+  - [4 -1 트리 기초](#4--1-트리-기초)
+    - [4-1-2 트리생성](#4-1-1-트리-생성)
+    - [4-2-2 트리호출](#4-1-2-트리-출력)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
 - [1. 전위/후위 연산자 오버로딩](#1-전위후위연산자-오버로딩)
 - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
+- [3. shared_ptr](#3-shared-ptr)
 
 ## 1.프로젝트 준비
 
@@ -335,7 +336,7 @@ void PrintTree(NodeRef root, int depth)
 }
 ```
 
-Tree에 대한 예시코드는 [여기(TreeExam.cpp)](./SelfModule/TreeExam.cpp)를 클릭하면 되고, 결과는 아래같이 나온다.  
+Tree에 대한 예시코드는 [여기(TreeExam.cpp)](./Algorithm/SelfModule/TreeExam.cpp)를 클릭하면 되고, 결과는 아래같이 나온다.  
 
 <img title="px(픽셀) 크기 설정" src="./GitHubImage/Tree.png" alt="dfs" data-align="center" width="395">
 
@@ -373,7 +374,7 @@ reserve는 메모리에 할당만 하고 초기화는 하지 않는다. 즉 capa
 
 
 
-### shared_ptr
+### 3. shared_ptr
 
 c++ 11에서 추가된 스마트포인터 클래스중 하나이다.
 
