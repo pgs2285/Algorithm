@@ -17,7 +17,7 @@ void Dijkstra::findPath(int here)
 
 	std::vector<VertexCost> discovered;
 	std::vector<uint32_t> best(_vertices.size(), INT32_MAX); // 각 정점별로 지금까지 발견한 최소거리 저장. 
-	std::vector<int> parent(6, -1);
+	std::vector<int> parent(_vertices.size(), -1);
 	best[here] = 0;
 	parent[here] = here;
 	discovered.push_back(VertexCost{ here, 0 });

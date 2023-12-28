@@ -191,6 +191,7 @@
     <ClCompile Include="SelfModule\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\Priority_queue.h" />
     <ClInclude Include="SelfModule\Dijkstra.h" />
     <ClInclude Include="SelfModule\BFS.h" />
     <ClInclude Include="SelfModule\DFS.h" />
