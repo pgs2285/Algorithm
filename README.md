@@ -356,7 +356,7 @@ Tree에 대한 예시코드는 [여기(TreeExam.cpp)](./Algorithm/SelfModule/Tre
 Priority_queue<자료형, Container, Predicate> 형식으로 넣어줄 수 있으며 Predicate는 정렬방식을 넣어준다 (std::greater, std::less)  
 간단하게 알고리즘을 설명하자면 push할땐 맨 밑에 넣어주고 (i - 1) / 2 와 크기를 계속비교해주고 Predicate 조건에 맞으면 멈춘다.
 pop은 A[0]를 삭제하고 끝노드를 올린후, 좌측과비교, 우측과 비교후 Predicate조건에 맞으면 멈춘다.
-Priority_queue 에 대한 예시코드는 [여기(Priority_queue)](./Algorithm/SelfModule/Priority_queue.cpp)를 클릭하면 되고, 결과는 아래같이 나온다.  
+Priority_queue 에 대한 예시코드는 [여기(Priority_queue)](./Algorithm/SelfModule/Priority_queue.h)를 클릭하면 되고, 결과는 아래같이 나온다.  
 <img title="px(픽셀) 크기 설정" src="./GitHubImage/priority_queue.png" alt="pq" data-align="center" width="395">       
 
 ## 햇갈릴 만한것 Review
