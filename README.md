@@ -23,6 +23,7 @@
     - [4-1-2 트리생성](#4-1-1-트리-생성)
     - [4-2-2 트리호출](#4-1-2-트리-출력)
   - [4 - 3. 우선순위 큐 구하기](#4-3-우선순위-큐-구현하기)
+  - [4 - 4. A* 구현하기](#4-4-A*-구현하기)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -293,8 +294,6 @@ BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던
 
 - 간선(Edge): 노드의 계층구조를 표현하기 위해 사용
 
-
-
 #### 4-1-1 트리 생성
 
 트리는 아래와 같이 생성 할 수 있다.
@@ -303,22 +302,22 @@ BFS를 사용하면 최단경로가 보장이 된다. 또한 방금 학습했던
 using NodeRef = std::shared_ptr<struct Node>;
 struct Node
 {
-	Node(const string& data) : data(data) {}
-	
-	string data;
-	vector<NodeRef> children;
+    Node(const string& data) : data(data) {}
+
+    string data;
+    vector<NodeRef> children;
 };
 
 NodeRef CreateTree()
 {
-	NodeRef root = make_shared<Node>("루트");
-	{
-		NodeRef node = make_shared<Node>("요소 1");
-		root->children.push_back(node);
-		{
-			NodeRef leaf = make_shared<Node>("리프1");
-			node->children.push_back(leaf);
-		}
+    NodeRef root = make_shared<Node>("루트");
+    {
+        NodeRef node = make_shared<Node>("요소 1");
+        root->children.push_back(node);
+        {
+            NodeRef leaf = make_shared<Node>("리프1");
+            node->children.push_back(leaf);
+        }
 ....(생략)
 }
 ```
@@ -330,10 +329,10 @@ NodeRef CreateTree()
 ```cpp
 void PrintTree(NodeRef root, int depth)
 {
-	for (int i = 0; i < depth; i++) cout << "-";
-	cout << root->data << endl;
-	for (NodeRef& child : root->children)
-		PrintTree(child,depth + 1);
+    for (int i = 0; i < depth; i++) cout << "-";
+    cout << root->data << endl;
+    for (NodeRef& child : root->children)
+        PrintTree(child,depth + 1);
 }
 ```
 
@@ -341,25 +340,44 @@ Tree에 대한 예시코드는 [여기(TreeExam.cpp)](./Algorithm/SelfModule/Tre
 
 <img title="px(픽셀) 크기 설정" src="./GitHubImage/Tree.png" alt="dfs" data-align="center" width="395">  
 
-### 4-2 힙트리 이론  
-#### 이진트리(이진검색트리)란?  
+### 4-2 힙트리 이론
+
+#### 이진트리(이진검색트리)란?
+
 이진트리는 각 노드가 최대 두개의 자식을 가지는 트리이다.  
 이진검색트리는 왼쪽은 현재값보다 작고, 오른쪽은 현재값보다 무조건 큰 트리의 구조를 의미한다. 이진트리를 효율적으로 구현하기 위해서는 이진트리의 균형을 맞추어주어야 하는데, 이를위해 AVL,Red-Black을 사용한다.  
 
-#### 힙트리 란?  
+#### 힙트리 란?
+
 힙트리는 완전이진트리의 일종으로 우선순위 큐를 구현하기 위한 트리이다. 다만 느슨한 정렬을 이루게된다.(상위노드가 하위노드보다 크다는 정도만)힙트리는 다음과 같은 법칙을 따른다.  
-- 1. [부모 노드]가 가진값은 항상 [자식노드] 보다 크다.
-- 2. 노드의 개수를 알면 트리 구조는 무조건 확정할 수 있다. (마지막 레벨을 제외한 모든 레벨은 채워져 있어야한다. 채울때는 왼쪽부터 채워야한다.) 이는 배열을 이용해서 힙 구조를 바로 표현할 수 있다는 것을 의미한다.  
-    (루트는 A[0], i번 노드의 왼쪽자식은 [(2*i) + 1], i번 노드의 오른쪽 자식은 [(2*i) + 2], i 번 노드의 부모는  [(i-1)/2] 이다.)
-### 4-3 우선순위 큐 구현하기.  
+
+- [부모 노드]가 가진값은 항상 [자식노드] 보다 크다.
+
+- 노드의 개수를 알면 트리 구조는 무조건 확정할 수 있다. (마지막 레벨을 제외한 모든 레벨은 채워져 있어야한다. 채울때는 왼쪽부터 채워야한다.) 이는 배열을 이용해서 힙 구조를 바로 표현할 수 있다는 것을 의미한다.  
+  (루트는 A[0], i번 노드의 왼쪽자식은 [(2*i) + 1], i번 노드의 오른쪽 자식은 [(2*i) + 2], i 번 노드의 부모는  [(i-1)/2] 이다.)    
+
+
+
+### 4-3 우선순위 큐 구현하기.
+
 우선순위 큐는 template 형태로 구현했으며 총 3개의 인자까지 받을 수 있다.  
 Priority_queue<자료형, Container, Predicate> 형식으로 넣어줄 수 있으며 Predicate는 정렬방식을 넣어준다 (std::greater, std::less)  
 간단하게 알고리즘을 설명하자면 push할땐 맨 밑에 넣어주고 (i - 1) / 2 와 크기를 계속비교해주고 Predicate 조건에 맞으면 멈춘다.
 pop은 A[0]를 삭제하고 끝노드를 올린후, 좌측과비교, 우측과 비교후 Predicate조건에 맞으면 멈춘다.
 Priority_queue 에 대한 예시코드는 [여기(Priority_queue)](./Algorithm/SelfModule/Priority_queue.h)를 클릭하면 되고, 결과는 아래같이 나온다.  
-<img title="px(픽셀) 크기 설정" src="./GitHubImage/priority_queue.png" alt="pq" data-align="center" width="395">       
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/priority_queue.png" alt="pq" data-align="center" width="395">      
 
-## 햇갈릴 만한것 Review
+### 4-4 A* 알고리즘 구현하기
+
+A*알고리즘은 최종점수(F)를 기준으로 가장빠른 경로를 찾는 알고리즘이다.   
+
+**F=G+H** 를 기반으로 최단거리를 찾는데, **G** 는 **시작점에서 해당좌표까지 이동하는데 드는 비용**이고, **H**는 **목적지에 얼마나 가까운지 나타내는 것이다**  
+
+즉 보통 F값이  작을수록 좋은것이며, 이를 구현하기 위해 priority_queue를 사용한다(보통predicate를 greater로 둬서 오름차순으로 정렬).   이를 제외하면 전체적인 알고리즘은 다익스트라와 똑같다. 구현한 코드는 [여기(Player.cpp)](./Maze/Player.cpp) 에 AStar() ,함수에 있으며 구현 결과는 아래와 같다  
+
+![dfs](./GitHubImage/AStar.gif "px(픽셀) 크기 설정")
+
+### 햇갈릴 만한것 Review
 
 ### 1. (전위/후위)연산자 오버로딩.
 
@@ -388,8 +406,6 @@ Iterator& operator--(int)
 resize는 할당후 초기화 한다. 즉 size를 호출했을때 변경 후 사이즈가 출력되고, []로 바로 접근할 수도 있다.
 reserve는 메모리에 할당만 하고 초기화는 하지 않는다. 즉 capacity()를 호출 하면 크기를 볼 순 있지만, size()호출시 이전과 같은값이 호출될것이다.  
 크기를 미리 할당한다는 면에서만 비추어 보면 reserve가 resize보다 빠를수 밖에 없다.  
-
-
 
 ### 3. shared_ptr
 

@@ -13,6 +13,7 @@ public:
 	void RightHandOnWall(Pos _pos, Pos dest);
 	bool CanGo(Pos pos);
 	void Bfs(Pos _pos, Pos dest);
+	void AStar(Pos pos, Pos dest);
 private:
 	Pos _pos = {};
 	int32 _dir = DIR_UP;

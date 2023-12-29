@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Player.h"
 #include "Board.h"
 
@@ -9,26 +9,31 @@ void Player::Init(Board* board)
 	Pos pos = _pos;
 	Pos dest = board->GetExitPos();
 
-	// ¿À¸¥¼ÕÀÇ ¹ıÄ¢
+	// ì˜¤ë¥¸ì†ì˜ ë²•ì¹™
 	//RightHandOnWall(_pos, dest);
-	Bfs(pos, dest);
+	//Bfs(pos, dest);
+	AStar(_pos, dest);
 }
 
 void Player::Update(uint64 deltaTick)
 {
 	if (_pathIndex >= _path.size())
-		return;
-	else {
+	{
 
+		return;
+	}
+		//return;
+	else {
+		
 		_sumTick += deltaTick;
 		if (_sumTick >= _moveTick)
 		{
 			_sumTick = 0;
 
 			_pos = _path[_pathIndex];
-			cout <<"BFS / X : " << _pos.x << " Y : " << _pos.y;
 			_pathIndex++;
 		}
+
 	}
 }
 
@@ -45,30 +50,30 @@ void Player::RightHandOnWall(Pos pos, Pos dest)
 	_path.push_back(pos);
 	while (pos != dest)
 	{
-		// ·ÎÁ÷ 
-		// 1. ÇöÀç ¹Ù¶óº¸´Â ¹æÇâÀ» ±âÁØÀ¸·Î ¿À¸¥ÂÊÀ¸·Î °¥ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù
-		// 1-1. ÂüÀÏ½Ã, ¿À¸¥ÂÊ ¹æÇâÀ¸·Î 90µµ È¸Àü ÈÄ ÇÑ º¸ÀüÁø
-		// 1-2. °ÅÁşÀÏ½Ã 2¹øÀ¸·Î.
-		// 2. ÇöÀç ¹Ù¶óº¸´Â ¹æÇâ ±âÁØÀ¸·Î ÀüÁøÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎ.
-		// 2-1. ÂüÀÏ½Ã ¾ÕÀ¸·Î ÇÑº¸ ÀüÁø.
-		// 2-2. °ÅÁşÀÏ½Ã 3¹øÀ¸·Î.
-		// 3. ¿ŞÂÊÀ¸·Î 90µµ È¸Àü,
-		// ÀÌÈÄ ¹«ÇÑ ·çÇÁ.
+		// ë¡œì§ 
+		// 1. í˜„ì¬ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°ˆ ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤
+		// 1-1. ì°¸ì¼ì‹œ, ì˜¤ë¥¸ìª½ ë°©í–¥ìœ¼ë¡œ 90ë„ íšŒì „ í›„ í•œ ë³´ì „ì§„
+		// 1-2. ê±°ì§“ì¼ì‹œ 2ë²ˆìœ¼ë¡œ.
+		// 2. í˜„ì¬ ë°”ë¼ë³´ëŠ” ë°©í–¥ ê¸°ì¤€ìœ¼ë¡œ ì „ì§„í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸.
+		// 2-1. ì°¸ì¼ì‹œ ì•ìœ¼ë¡œ í•œë³´ ì „ì§„.
+		// 2-2. ê±°ì§“ì¼ì‹œ 3ë²ˆìœ¼ë¡œ.
+		// 3. ì™¼ìª½ìœ¼ë¡œ 90ë„ íšŒì „,
+		// ì´í›„ ë¬´í•œ ë£¨í”„.
 
-		// ÇöÀç enum Dir Àº ¼ø¼­´ë·Î ¹İ½Ã°è¹æÇâÀ¸·Î µ¹¾Æ°¡¹Ç·Î ¾Æ·¡¿Í°°ÀÌ È¸Àü
+		// í˜„ì¬ enum Dir ì€ ìˆœì„œëŒ€ë¡œ ë°˜ì‹œê³„ë°©í–¥ìœ¼ë¡œ ëŒì•„ê°€ë¯€ë¡œ ì•„ë˜ì™€ê°™ì´ íšŒì „
 		int32 newDir = (_dir - 1 + DIR_COUNT) % DIR_COUNT;
-		if (CanGo(pos + front[newDir]))	// ¿À¸¥ÂÊ È¸Àü ÈÄ ÀüÁø
+		if (CanGo(pos + front[newDir]))	// ì˜¤ë¥¸ìª½ íšŒì „ í›„ ì „ì§„
 		{
 			_dir = newDir;
 			pos += front[newDir];
 			_path.push_back(pos);
 		}
-		else if (CanGo(pos + front[_dir])) // ÀüÁø
+		else if (CanGo(pos + front[_dir])) // ì „ì§„
 		{
 			pos += front[_dir];
 			_path.push_back(pos);
 		}
-		else {	// ¿ŞÂÊÀ¸·Î 90µµ È¸Àü
+		else {	// ì™¼ìª½ìœ¼ë¡œ 90ë„ íšŒì „
 			_dir = (_dir + 1) % DIR_COUNT;
 		}
 	}
@@ -115,17 +120,17 @@ void Player::Bfs(Pos pos, Pos dest)
 	_path.clear();
 	_path.push_back(pos);
 	// bfs
-	// 1. Ã³À½ ¹æ¹®ÇÑ °÷À» Å¥¿¡ ³Ö¾îÁÖ°í ¹ß°ß check,
-	// 2. ¹«ÇÑ ·çÇÁ¸¦ µ¹¸é¼­ ¼øÈ¸ÇÑ´Ù. »óÇÏÁÂ¿ì °¥ ¼ö ÀÖ³ª Ã¼Å© 
-	// 2-1. °¥ ¼ö ¾øÀ¸¸é continue.
-	// 2-2. ÀÌ¹Ì ¹ß°ßÇÑ Áö¿ªÀÌ¸é continue.
-	// 3. bfs¼øÈ¸ ÈÄ µµÂøÇßÀ¸¸é break ÇÏ°í parent¸¦ ¿ªÂüÁ¶ ÇÏ¿© °£´Ù.
+	// 1. ì²˜ìŒ ë°©ë¬¸í•œ ê³³ì„ íì— ë„£ì–´ì£¼ê³  ë°œê²¬ check,
+	// 2. ë¬´í•œ ë£¨í”„ë¥¼ ëŒë©´ì„œ ìˆœíšŒí•œë‹¤. ìƒí•˜ì¢Œìš° ê°ˆ ìˆ˜ ìˆë‚˜ ì²´í¬ 
+	// 2-1. ê°ˆ ìˆ˜ ì—†ìœ¼ë©´ continue.
+	// 2-2. ì´ë¯¸ ë°œê²¬í•œ ì§€ì—­ì´ë©´ continue.
+	// 3. bfsìˆœíšŒ í›„ ë„ì°©í–ˆìœ¼ë©´ break í•˜ê³  parentë¥¼ ì—­ì°¸ì¡° í•˜ì—¬ ê°„ë‹¤.
 	const int32 size = _board->GetSize();
 	vector<vector<bool>> discovered(size, vector<bool>(size,false));
-	map<Pos, Pos> parent; // Parent[A] = [B] -> AÀÇ ºÎ¸ğ´Â BÀÌ´Ù.
+	map<Pos, Pos> parent; // Parent[A] = [B] -> Aì˜ ë¶€ëª¨ëŠ” Bì´ë‹¤.
 	queue<Pos> q;
 
-	q.push(pos);  // Ã³À½ ¹æ¹®³Ö¾îÁÖ°í,
+	q.push(pos);  // ì²˜ìŒ ë°©ë¬¸ë„£ì–´ì£¼ê³ ,
 	discovered[pos.y][pos.x] = true;
 	parent[pos] = pos;
 
@@ -140,9 +145,9 @@ void Player::Bfs(Pos pos, Pos dest)
 		for (int dir = 0; dir < 4; dir++)
 		{
 			Pos nextPos = pos + front[dir];
-			// 2-1 °¥¼ö ÀÖ³ª Ã¼Å©
+			// 2-1 ê°ˆìˆ˜ ìˆë‚˜ ì²´í¬
 			if (CanGo(nextPos) == false) continue;
-			// 2-2  ÀÌ¹Ì ¹ß°ßÇß³ª Ã¼Å©
+			// 2-2  ì´ë¯¸ ë°œê²¬í–ˆë‚˜ ì²´í¬
 			if (discovered[nextPos.y][nextPos.x]) continue;
 
 			q.push(nextPos);
@@ -161,3 +166,110 @@ void Player::Bfs(Pos pos, Pos dest)
 		std::reverse(_path.begin(), _path.end());
 	}
 }
+
+struct PQNode
+{
+	bool operator<(const PQNode& other) const { return f < other.f; }
+	bool operator>(const PQNode& other) const { return f > other.f; }
+	int32 f;
+	int32 g;
+	Pos pos;
+};
+
+void Player::AStar(Pos pos, Pos dest)
+{
+
+// ì ìˆ˜ ë§¤ê¸°ê¸°
+// F = G + H
+// F = ìµœì¢…ì ìˆ˜ (ì‘ì„ìˆ˜ë¡ ì¢‹ë‹¤)
+// G = ì‹œì‘ì ì—ì„œ í•´ë‹¹ì¢Œí‘œê¹Œì§€ ì´ë™í•˜ëŠ”ë° ë“œëŠ” ë¹„ìš© (ì‘ì„ìˆ˜ë¡ ì¢‹ë‹¤)
+// H = ëª©ì ì§€ì—ì„œ ì–¼ë§ˆë‚˜ ê°€ê¹Œìš´ì§€ (ì‘ì„ìˆ˜ë¡ ì¢‹ìŒ)
+// 1. ì˜ˆì•½ ì‹œìŠ¤í…œ êµ¬í˜„
+// 2. ë’¤ëŠ¦ê²Œ ë” ì¢‹ì€ ê²½ë¡œê°€ ë°œê²¬ë  ìˆ˜ ìˆë‹¤.
+	Pos start = pos;
+	Pos front[] =
+	{
+		Pos {-1, 0},
+		Pos{0,-1},
+		Pos{1,0},
+		Pos{0,1},
+		Pos{-1,-1},
+		Pos{1,-1},
+		Pos{1,1},
+		Pos{-1,1}
+	};
+
+	int32 cost[] =
+	{
+		10,
+		10,
+		10,
+		10,
+		14,
+		14,
+		14,
+		14
+	}; // ì´ë™í•˜ëŠ”ë° ë“œëŠ” ë¹„ìš©, ìœ„ frontì™€ match
+	const int8 DIR_COUNT = 4;
+	const int32 size = _board->GetSize(); 
+	vector<vector<bool>> closed(size, vector<bool>(size, false));
+	//best[y][x] -> ì§€ê¸ˆê¹Œì§€ (y,x)ì— ëŒ€í•œ ê°€ì¥ ì¢‹ì€ ë¹„ìš©
+	vector<vector<int32>> best(size, vector<int32>(size, INT32_MAX));
+	// ë¶€ëª¨ ì¶”ì  ìš©ë„
+	map<Pos, Pos> parent;
+	//openlist
+	priority_queue<PQNode, vector<PQNode>, std::greater<PQNode>> pq;
+	{//ì´ˆê¸°ì„¤ì •
+		int32 g = 0; //ì‹œì‘í• ë•ŒëŠ” 0ê°’(ì´ë™ì•ˆí–ˆìœ¼ë‹ˆ)
+		int32 h = 10 * (abs(dest.y - start.y) + abs(dest.x - start.x)); // ì„ì˜ë¡œ ì •í•´ì¤€ hê³µì‹
+		// hëŠ” ë‚˜ì¤‘ì— í”¼íƒ€ê³ ë¼ìŠ¤ë“± ì—¬ëŸ¬ë°©ë²•ìœ¼ë¡œ êµ¬í•´ì¤˜ë„ ë¨.
+		pq.push(PQNode{ g + h, g, start });
+
+		best[start.y][start.x] = g + h;
+		parent[start] = start;
+	}
+	
+	while (pq.empty() == false)
+	{
+		// ì œì¼ ì¢‹ì€ í›„ë³´ ì°¾ê¸°
+		PQNode node = pq.top();
+		pq.pop();
+
+		// ë™ì¼í•œ ì¢Œí‘œë¥¼ ì—¬ëŸ¬ ê²½ë¡œë¡œ ì°¾ì•„ì„œ ë” ë¹ ë¥¸ê²½ë¡œë¡œ ì¸í•´ ì´ë¯¸ ë°©ë¬¸ëœ ê²½ìš° ìŠ¤í‚µ.
+		if (best[node.pos.y][node.pos.x] < node.f) continue;
+		if (closed[node.pos.y][node.pos.x]) continue;
+		if (node.pos == dest) break;
+		// ì´ë¯¸ ë°©ë¬¸ì„ í–ˆëŠ”ë° ë” ë¹ ë¥¸ê²½ë¡œê°€ ìˆì„ìˆ˜ëŠ” ì—†ë‹¤.(ìˆ˜í•™ì ìœ¼ë¡œ ì¦ëª…ì´ ë˜ì–´ìˆìŒ)
+		closed[node.pos.y][node.pos.x] = true;
+		for (int i = 0; i < DIR_COUNT; ++i)
+		{
+			Pos nextPos = node.pos + front[i];
+			//ê°ˆìˆ˜ìˆëŠ” ì§€ì—­
+			if (CanGo(nextPos) == false) continue;
+			if (closed[nextPos.y][nextPos.x]) continue;
+			int32 g = node.g + cost[i];
+			int32 h = 10 * (abs(dest.y - nextPos.y) + abs(dest.x - nextPos.x));
+
+			// ë‹¤ë¥¸ê²½ë¡œì—ì„œ ë” ë¹ ë¥¸ê¸¸ì„ ì°¾ì•˜ìœ¼ë©´ ìŠ¤í‚µ
+			if (best[nextPos.y][nextPos.x] <= g + h) continue;
+			best[nextPos.y][nextPos.x] = g + h;
+			pq.push(PQNode{ g + h, h, nextPos });
+			parent[nextPos] = node.pos;
+		}
+
+	}
+	_path.clear();
+	Pos __pos = dest;
+	while (true)
+	{
+		_path.push_back(__pos);
+
+		if (__pos == parent[__pos]) break;
+		__pos = parent[__pos];
+	}
+	std::reverse(_path.begin(), _path.end());
+
+}
+
+
+
