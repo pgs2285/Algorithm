@@ -449,4 +449,13 @@ if(index!=NULL) cout << index <<endl;
 
 ```
 만약 값을 찾지 못했으면 null을 리턴해주는것이 구현의도였는데 만약 탐색값이 0이였을때도 if문이 성립해 return하지 않았었다..
-다시는 이런실수 반복하지 않기위해서 -1 과같은 숫자를 리턴해주는 습관을 들여야겠다.
+다시는 이런실수 반복하지 않기위해서 -1 과같은 숫자를 리턴해주는 습관을 들여야겠다.  
+```cpp
+#ifndef NULL
+    #ifdef __cplusplus
+        #define NULL 0
+    #else
+        #define NULL ((void *)0)
+    #endif
+#endif
+```  
