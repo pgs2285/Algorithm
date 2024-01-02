@@ -433,7 +433,7 @@ std::shared_ptr<int> p1 = std::make_shared<int>(); //성공
 
 ### 4. NULL 은 0이다.  
 당연한 말이다 하하..........  
-이진트리를 구성하는 과정에서 아래와 같은 코드를 작성한 적이 있다. 
+이진탐색을 구성하는 과정에서 아래와 같은 코드를 작성한 적이 있다. 
 ```cpp
 template<typename T>
 inline int BinarySearch<T>::binarySearch(std::vector<T> vec, int N)
