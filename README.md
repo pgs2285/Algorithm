@@ -32,6 +32,7 @@
 - [1. 전위/후위 연산자 오버로딩](#1-전위후위연산자-오버로딩)
 - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
 - [3. shared_ptr](#3-shared_ptr)
+- [4. NULL 은 0 이다](#4-NULL-은-0이다)
 
 ## 1.프로젝트 준비
 
@@ -429,3 +430,23 @@ std::shared_ptr<int> p1 = std::make_shared<int>(); //성공
 ```
 
 위 예제에서 확인하듯이 shared_ptr객체에 포인터를 바로 대입하면 컴파일시 에러가 발생한다. 왜냐하면 shared_ptr 생성자의 아규먼트는 명시적이여햐 하기떄문이다.
+
+### 4. NULL 은 0이다.  
+당연한 말이다 하하..........  
+이진트리를 구성하는 과정에서 아래와 같은 코드를 작성한 적이 있다. 
+```cpp
+template<typename T>
+inline int BinarySearch<T>::binarySearch(std::vector<T> vec, int N)
+{
+	//(생략)
+	...
+	return NULL;
+}
+
+BinarySearch bs;
+int index = bs.binarySearch(vec, 10);
+if(index!=NULL) cout << index <<endl;
+
+```
+만약 값을 찾지 못했으면 null을 리턴해주는것이 구현의도였는데 만약 탐색값이 0이였을때도 if문이 성립해 return하지 않았었다..
+다시는 이런실수 반복하지 않기위해서 -1 과같은 숫자를 리턴해주는 습관을 들여야겠다.
