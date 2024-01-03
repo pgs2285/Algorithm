@@ -13,5 +13,4 @@ int main()
 	{
 		cout << "위치 : " << ans << endl;
 	}
-
 }
