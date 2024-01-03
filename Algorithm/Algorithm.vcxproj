@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="SelfModule\BinarySearchTree.cpp" />
     <ClCompile Include="SelfModule\Dijkstra.cpp" />
     <ClCompile Include="SelfModule\BFS.cpp" />
     <ClCompile Include="SelfModule\DFS.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="SelfModule\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\BinarySearchTree.h" />
     <ClInclude Include="SelfModule\BinarySearch.h" />
     <ClInclude Include="SelfModule\Priority_queue.h" />
     <ClInclude Include="SelfModule\Dijkstra.h" />
