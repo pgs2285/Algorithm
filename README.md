@@ -389,30 +389,19 @@ A*알고리즘은 최종점수(F)를 기준으로 가장빠른 경로를 찾는 
 
 ![pq](./GitHubImage/binarySearch.png "px(픽셀) 크기 설정")
 
-### 5-2. 이진탐색트리
+### 5-2. 이진탐색트리 구현하기
 
 위에서 이진탐색을 보았지만, 이진탐색은 배열의 단점을 보완하지 못해 삽입, 삭제등에 시간이 오래걸린다는 단점이 있다. 이를 트리형태로 만들어서 보완한것이 이진 탐색 트리이다.   
-
 구현은 Insert, Search, Next(다음으로 큰값 찾기), Min, Max, Delete, Print(Inorder 혹은 트리형탸로)를 구현하였다. 
-
 알고리즘적으로 레드블랙 트리를 들어가기전 매우 중요한 부분이라 코드를 한번 복기하고 넘어가보자.
-
 - Insert는 간단하게 값이 크면 node->right, 값이 작으면 node->left로 넣어주었고,
-
 - Search는 이진탐색과 마찬가지로 크면 right, 작으면 left를 탐색해 시간복잡도를 O(logn)으로 맞춰주었다. ([구현한 코드](./Algorithm/SelfModule/BinarySearchTree.h)내에 Search, Search2 두개가 있는데 Search는 재귀함수로 구현, Search2 는 while문으로 구현한 것이다.)  
-
 - Min 은 tree가 nullptr이 나올때까지 Node->left를 타고 내려가 마지막값을 return해준다
-
 - Max 는 tree가 nullptr이 나올때까지 Node->right를 타고 내려가 마지막값을 return해준다.
-
 - Delete는 다음 3가지를 고려해서 코드를 짰다. 
-  
   - child가 하나도 없는경우-> 날려주고 끝
-  
   - 자식이 하나만 있는경우, 자식을 위로 올려주고 자기자신은 삭제
-  
   - 자식이 두명인경우 -> 자기보다 다음으로 큰 수를 찾아서 넣어주고, 중복된 수는 삭제해준다.
-
 - Search는 Inorder와 트리구조로 Print해주는것을 제작했다.  Inorder는 left,right를 탐색하기전 출력을 맨위에 해주면 된다.(이후 Preorder, postorder도 출력순서만 바꾸어주면됨) 트리구조로 출력은 그냥 CursorPosition조정해주면서 크기 조정해주며 만들었다.
 
 
