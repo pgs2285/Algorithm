@@ -11,7 +11,7 @@ enum class ConsoleColor
 	YELLOW = RED | GREEN,
 	WHITE = RED | GREEN | BLUE,
 };
-void SetCursorPosition(int x, int y)
+void SetCursorPosition2(int x, int y)
 {	// 커서위치 변경
 	HANDLE output = ::GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
@@ -27,12 +27,12 @@ void SetCursorColor(ConsoleColor color)
 
 void RedBlackTree::Print(Node* node, int x, int y)
 {
-	if (node == nullptr) 
+	if (node == _nil) 
 		return;
-	SetCursorPosition(x, y);
+	SetCursorPosition2(x, y);
 
 	if (node->color == Color::Black)
-		SetCursorColor(ConsoleColor::BLACK);
+		SetCursorColor(ConsoleColor::BLUE);
 	else
 		SetCursorColor(ConsoleColor::RED);
 	std::cout << node->key;
@@ -119,37 +119,108 @@ void RedBlackTree::InsertFixup(Node* node)
 				if (node == node->parent->right) // triangle type(위에 if문으로 부모가 조상노드의 왼쪽이란걸 체크햇으니)
 				{
 					// 펴준다
+					node = node->parent;
+					LeftRotate(node);
 				}
+				node->parent->color = Color::Black;
+				node->parent->parent->color = Color::Red;
+				RightRotate(node->parent->parent);
 			}
 
 		}
-		else
+		else // 위 와는 반대상황
 		{
+			Node* uncle = node->parent->parent->left; 
 
+			if (uncle->color == Color::Red)
+			{// 이경우는 parent는 블랙, uncle도 블랙, pp는 red로 바꾸어주기. (Recoloring)
+				node->parent->parent->color = Color::Red;
+				node->parent->color = Color::Black;
+				uncle->color = Color::Black;
+
+				node = node->parent->parent; // ppp가 Red면 위배되니 while문을 통해 이전것들도 수정.
+			}
+
+			else
+			{
+				if (node == node->parent->left) // triangle type(위에 if문으로 부모가 조상노드의 왼쪽이란걸 체크햇으니)
+				{
+					// 펴준다
+					node = node->parent;
+					RightRotate(node);
+				}
+				node->parent->color = Color::Black;
+				node->parent->parent->color = Color::Red;
+				LeftRotate(node->parent->parent);
+			}
 		}
 	}
+	_root->color = Color::Black;
 }
-
 #pragma region 설명(LeftRotate)
+/*
+		before
+*
+*		   [x]
+*	 [1]		[y]
+*			   [2][3]
+* 
+*		after
+* 
+*			[y]
+*		[x]		[3]
+*	  [1][2]
+*/
+#pragma endregion
+void RedBlackTree::LeftRotate(Node* x)
+{
+	Node* y = x->right;
+	x->right = y->left;
+	if(y->left != _nil)
+		y->left->parent = x;
+	y->parent = x->parent;
+	if (x->parent == _nil)
+		_root = y;
+	else if (x == x->parent->left)
+		x->parent->left = y;
+	else
+		x->parent->right = y;
+
+	y->left = x;
+	x->parent = y;
+
+}
+#pragma region 설명(RightRotate)
 /*
 *			before
 *	       [y]
 *	 [x]		[3]
 *[1]     [2]
-* 
+*
 *			after
-* 
+*
 *		   [x]
 *	 [1]		[y]
 *			[2]		[3]
 */
 #pragma endregion
-void RedBlackTree::LeftRotate(Node* node)
+void RedBlackTree::RightRotate(Node* y)
 {
-}
+	Node* x = y->left;
+	y->left = x->right;
+	if(x->right != _nil)
+		x->right->parent = y;
 
-void RedBlackTree::RightRotate(Node* node)
-{
+	x->parent = y ->parent;
+	if (y->parent == _nil)
+		_root = x;
+	else if (y->parent->left == y)
+		y->parent->left = x;
+	else
+		y->parent->right = x;
+	y->parent = x;
+	x->right = y;
+
 }
 
 Node* RedBlackTree::Search(Node* node, int key)

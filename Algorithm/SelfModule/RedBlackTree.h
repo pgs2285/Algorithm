@@ -26,6 +26,7 @@ public:
 	RedBlackTree();
 	~RedBlackTree();
 
+	void Print() { Print(_root, 10, 0); }
 	void Print(Node* node, int x, int y);
 	void Insert(int key);
 	//노드가 규칙을 잘 지키는가
