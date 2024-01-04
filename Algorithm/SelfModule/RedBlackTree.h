@@ -26,6 +26,19 @@ public:
 	RedBlackTree();
 	~RedBlackTree();
 
+	void Print(Node* node, int x, int y);
+	void Insert(int key);
+	//노드가 규칙을 잘 지키는가
+	void InsertFixup(Node* node);
+	void LeftRotate(Node* node);
+	void RightRotate(Node* node);
+
+	Node* Search(Node* node, int key);
+	Node* Max(Node* node);
+	Node* Min(Node* node);
+	Node* Next(Node* node);
+	
+
 private:
 	Node* _root = nullptr;
 	Node* _nil = nullptr; // 이제는 nullptr을 사용하지 않고 nil 노드를 통해 단말노드인지 확인.
