@@ -457,7 +457,9 @@ Red-Red인 경우는 약 3가지의 케이스가 있다.
 - 2-1. Double Black(이하 DB)의 형제가 Red인 경우. -> 형제노드 = black, 부모노드 = red로 해주고 DB 방향으로 Rotate를 해준 후 다른 CASE로 넘어간다. 
 - 2-2. DB의 형제가 BLACK && 형제의 양쪽 자식이 모두 BLACK인 경우 -> 추가 BLACK을 부모에게 이전해준다. -> 부모가 RED이면 BLACK이 된다. 부모가 BLACK이라면 DB상태가 된다. 형제는 RED. 여전히 DB가 존재하면 부모를 대상으로 알고리즘을 이어서 실행한다. 
 - 2-3. DB의 형제가 BLACK이고, 형제의 near 자식이 RED, 형제의 far 자식이 BLACK인 경우 -> near=BLACK, 형제노드 = RED(s와 near 색상교환) far방향으로 Rotate해준다. 여기서 near은 형제노드의 자식중 자신을 기준으로 더 멀리있는 자식을 말한다. far은 그 반대이다. 이상태로 case 2-4로 간다.
-- 2-4. DB의 형제가 BLACK 이고 형제의 far자식이 RED 인경우-> p와 s색상을 교환하고 far = BLACK으로 바꾸어주고, DB방향으로 Rotate, 추가 Black을 제거해준다.
+- 2-4. DB의 형제가 BLACK 이고 형제의 far자식이 RED 인경우-> p와 s색상을 교환하고 far = BLACK으로 바꾸어주고, DB방향으로 Rotate, 추가 Black을 제거해준다.  
+
+구현은 위 방법대로 하면된다. 처음 발견한 사람은 어떻게 했는지 신기할뿐,,,
 
 
 
