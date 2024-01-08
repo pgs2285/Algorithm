@@ -24,6 +24,21 @@ void SetCursorColor(ConsoleColor color)
 	::SetConsoleTextAttribute(output, static_cast<SHORT>(color));
 }
 
+void ShowConsoleCursor(bool flag)
+{
+	HANDLE output = ::GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+	::GetConsoleCursorInfo(output, &cursorInfo);
+	cursorInfo.bVisible = flag;
+	::SetConsoleCursorInfo(output, &cursorInfo);
+}
+
+void RedBlackTree::Print()
+{
+	::system("cls");
+	Print(_root, 10, 0);
+	ShowConsoleCursor(false);
+}
 
 void RedBlackTree::Print(Node* node, int x, int y)
 {
@@ -261,6 +276,136 @@ Node* RedBlackTree::Next(Node* node)
 		parent = parent->parent;
 	}
 	return parent;
+}
+
+void RedBlackTree::Replace(Node* u, Node* v)
+{
+	if (u->parent == _nil)
+		_root = v;
+	else if (u == u->parent->left)
+		u->parent->left = v;
+	else
+		u->parent -> right = v;
+
+	if (v)
+		v->parent = u->parent;
+
+	delete u;
+}
+
+void RedBlackTree::Delete(int key)
+{
+	Node* deleteNode = Search(_root, key);
+	Delete(deleteNode);
+}
+
+void RedBlackTree::Delete(Node* node)
+{
+	if (node == _nil)
+		return;
+
+	if (node->left == _nil)
+	{
+		Color color = node->color; // 삭제할 노드의 색상분석
+		Node* right = node->right;
+		Replace(node, node->right);
+
+		if (color == Color::Black)
+			DeleteFixup(right);
+	}
+	else if (node->right == _nil)
+	{
+		Color color = node->color;
+		Node* left = node->left;
+		Replace(node, node->left);
+
+		if (color == Color::Black)
+			DeleteFixup(left);
+	}
+	else
+	{
+		Node* next = Next(node);
+		node->key = next->key;
+		Delete(next);
+	}
+}
+
+void RedBlackTree::DeleteFixup(Node* node)
+{
+	Node* x = node;
+	while (x != _root && x->color == Color::Black)
+	{ // case 1, 2 
+		if (x == x->parent->left)
+		{
+			Node* s = x->parent->right; // 형제노드
+			if (s->color == Color::Red)
+			{
+				// case 2-1에 의거해(Readme 참조) 형제노드를 Black, 부모노드를 Red로 바꾸어준다.
+				s->color = Color::Black;
+				x->parent->color = Color::Red;
+				// 이 경우에는 왼쪽이 double black인 상황이니 left rotation
+				LeftRotate(x->parent);
+				s = x->parent->right;
+			}
+			if (s->left->color == Color::Black && s->right->color == Color::Black)
+			{	// case 2-2 : 추가 BLACK을 부모에게 이전해준다. -> 부모가 RED이면 BLACK이 된다. 부모가 BLACK이라면 DB상태가 된다. 형제는 RED.
+				s->color = Color::Red;
+				x = x->parent; // 다음실행할 애를 parent로만 바꿔줘도 자동으로 실행될것.
+			}
+			else // 여기 들어온 순간부터 형제의 자식중 하나는 red
+			{	// case 2-3 (DB의 형제가 BLACK이고, 형제의 near 자식이 RED, 형제의 far 자식이 BLACK인 경우)
+				if (s->right->color == Color::Black)
+				{// near=BLACK, 형제노드 = RED(s와 near 색상교환) far방향으로 Rotate해준다.
+					s->left->color = Color::Black;
+					s->color = Color::Red;
+					RightRotate(s);
+					s = x->parent->right;
+				}
+
+				// case 2-4(형제의 far자식이 RED 인경우) : p와 s색상을 교환하고 far = BLACK으로 바꾸어주고, DB방향으로 Rotate,
+				s->color = x->parent->color;
+				x->parent->color = Color::Black;
+				s->right->color = Color::Black;
+				LeftRotate(x->parent);
+				x = _root;
+			}
+		}
+		else
+		{
+			Node* s = x->parent->left; // 형제노드
+			if (s->color == Color::Red)
+			{
+				s->color = Color::Black;
+				x->parent->color = Color::Red;
+				RightRotate(x->parent);
+				s = x->parent->left;
+			}
+			if (s->right->color == Color::Black && s->left->color == Color::Black)
+			{	// case 2-2 : 추가 BLACK을 부모에게 이전해준다. -> 부모가 RED이면 BLACK이 된다. 부모가 BLACK이라면 DB상태가 된다. 형제는 RED.
+				s->color = Color::Red;
+				x = x->parent;
+			}
+			else // 여기 들어온 순간부터 형제의 자식중 하나는 red
+			{	// case 2-3 (DB의 형제가 BLACK이고, 형제의 near 자식이 RED, 형제의 far 자식이 BLACK인 경우)
+				if (s->left->color == Color::Black)
+				{// near=BLACK, 형제노드 = RED(s와 near 색상교환) far방향으로 Rotate해준다.
+					s->right->color = Color::Black;
+					s->color = Color::Red;
+					LeftRotate(s);
+					s = x->parent->left;
+				}
+
+				// case 2-4(형제의 far자식이 RED 인경우) : p와 s색상을 교환하고 far = BLACK으로 바꾸어주고, DB방향으로 Rotate,
+				s->color = x->parent->color;
+				x->parent->color = Color::Black;
+				s->left->color = Color::Black;
+				RightRotate(x->parent);
+				x = _root;
+			}
+
+		}
+		x->color = Color::Black;
+	}
 }
 
 

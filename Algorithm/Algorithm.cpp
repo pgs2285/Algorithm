@@ -32,4 +32,17 @@ int main()
 	rbt.Insert(1);
 	rbt.Print();
 	this_thread::sleep_for(1s);
+	rbt.Delete(20);
+	rbt.Print();
+	this_thread::sleep_for(1s);
+	rbt.Delete(30);
+	rbt.Print();
+	this_thread::sleep_for(1s);
+	rbt.Insert(45);
+	rbt.Print();
+	this_thread::sleep_for(1s);
+	rbt.Delete(10);
+	rbt.Print();
+	this_thread::sleep_for(1s);
+
 }

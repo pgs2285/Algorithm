@@ -26,7 +26,7 @@ public:
 	RedBlackTree();
 	~RedBlackTree();
 
-	void Print() { Print(_root, 10, 0); }
+	void Print();
 	void Print(Node* node, int x, int y);
 	void Insert(int key);
 	//노드가 규칙을 잘 지키는가
@@ -38,6 +38,12 @@ public:
 	Node* Max(Node* node);
 	Node* Min(Node* node);
 	Node* Next(Node* node);
+
+	void Replace(Node* u, Node* v);
+	void Delete(int key);
+	void Delete(Node* node);
+	void DeleteFixup(Node* node);
+
 	
 
 private:
