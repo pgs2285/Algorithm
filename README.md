@@ -448,7 +448,75 @@ Red-Red인 경우는 약 3가지의 케이스가 있다.
 
 <img src="./GitHubImage/Insert.gif" title="px(픽셀) 크기 설정" alt="pq" width="548">
 
+## 6. 정렬
 
+### 6 - 1.버블정렬
+
+가장 기초가 되는 정렬로 자신의 옆에 있는값과 비교하여 값이 크거나 작으면(오름차순, 내림차순) 자리를 바꾸어준다. 그렇게 (N-1) + (N-2) .... + 2 번 교환이 일어나게 되고, 구현은 쉽지만 효율성은 O(n^2)이다.  아래는 버블정렬의 정렬과정을 그래프로 나타낸것이다.
+
+![bubble](./GitHubImage/bubbleSort.gif)
+
+```cpp
+	const int n = (int)v.size(); // std::vector v{3,5,1,4,6,7}
+	for (int i = 0; i < n - 1; i++)
+	{
+		for (int j = 0; j < (n - 1 - i); j++)
+		{
+			if (v[j] > v[j + 1])
+			{
+				std::swap(v[j], v[j + 1]);	
+			}
+			
+		}
+	} // output : 1,3,4,5,6,7
+```
+
+간단하게 위처럼 구현이 가능하다.
+
+### 6 - 2.선택정렬
+
+리스트를 한바퀴 순회후, 가장 작은것을 골라서 앞에서 부터 채워준다. 간단히 아래 애니메이션 같은 형태를 따른다
+
+![선택정렬animation](./GitHubImage/Selection-Sort-Animation.gif)
+
+똑같이 O(n^2) 이지만 성능상으로는 버블정렬보단 우수하다. (비교횟수는 동일하지만 이동횟수가 적음)
+
+```cpp
+	const int n = (int)v.size();
+	for (int i = 0; i < n - 1; i++)
+	{
+		int bestIdx = i;
+		for (int j= i + 1; j < n; j++)
+		{
+			if (v[j] < v[bestIdx]) bestIdx = j;
+		}
+		std::swap(v[i], v[bestIdx]);
+	}
+```
+
+### 6-3.삽입정렬
+
+배열의 모든 요소를 앞에서부터 차례대로 이미 정렬된 배열 부분과 비교하여, 자신의 위치를 찾아 삽입함으로써 정렬을 완성. 하지만 구현할때 구지 새 공간을 할당해줄 필요는 없음.**좌우로 분류를 해서 다른 공간처럼 사용하면 된다.** 
+
+```cpp
+void Sort::InsertSort()
+{
+	const int n = (int)v.size();
+	for (int i = 1; i < n; i++)
+	{
+		int insertData = v[i];
+		int j;
+		for (j = i - 1; j >= 0; j--)
+		{
+			if (v[j] > insertData) v[j + 1] = v[j];
+			else break; //밀어주다가 적당한 위치 찾으면 break
+		}
+		v[j + 1] = insertData; // 그 적당한 위칭 insertData
+	}
+}
+```
+
+> 구현된 정렬 코드들은 [Sort.cpp]((/Algorithm/SelfModule/Sort.cpp) 에 다 모여있다. 
 
 ### 햇갈릴 만한것 review
 

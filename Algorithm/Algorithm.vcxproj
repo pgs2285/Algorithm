@@ -191,6 +191,7 @@
     <ClCompile Include="SelfModule\DFS.cpp" />
     <ClCompile Include="SelfModule\TreeExam.cpp" />
     <ClCompile Include="SelfModule\Vector.h" />
+    <ClCompile Include="SelfModule\Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SelfModule\RedBlackTree.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="SelfModule\List.h" />
     <ClInclude Include="SelfModule\Queue.h" />
     <ClInclude Include="SelfModule\Stack.h" />
+    <ClInclude Include="SelfModule\Sort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
