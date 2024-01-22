@@ -109,6 +109,40 @@ void Sort::MergeResult(int left, int mid, int right)
 	}
 }
 
+void Sort::QuickSort(int left, int right)
+{
+	if (left > right) return;
+	int pivot = partition(left,right);
+	QuickSort(left, pivot - 1);
+	QuickSort(pivot + 1, right);
+}
+
+int Sort::partition(int left, int right)
+{
+	int pivot = v[left];
+	int low = left + 1;
+	int high = right;
+
+	while (low <= high)
+	{
+		while (low <= right && pivot >= v[low])
+		{
+			low++;
+		}
+		while (high >= left + 1 && pivot <= v[high] )
+		{
+			high--;
+		}
+		if (low < high)
+		{
+			std::swap(v[low], v[high]);
+		}
+	}
+	std::swap(v[left], v[high]);
+
+	return high;
+}
+
 void Sort::MergeSort(int left, int right)
 {
 	if (left >= right) 

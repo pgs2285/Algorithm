@@ -36,6 +36,7 @@
   - [6 - 3.삽입정렬](#6-3삽입정렬)
   - [6 - 4.힙정렬](#6-4힙정렬)
   - [6 - 5.병합정렬](#6-5병합정렬)
+  - [6 - 6.퀵정렬](#6-6퀵정렬)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -638,6 +639,56 @@ void Sort::MergeSort(int left, int right)
 }
 ```  
 재귀함수로 구현하면 편하다.
+
+### 6-6.퀵정렬
+정렬알고리즘 중 가장 유명한 Quick Sort이다.   
+병합 정렬처럼 데이터를 둘씩 쪼개서 하는것은 비슷해 보이지만(분할정복) , pivot을 설정해 비교해 나간다는 점이 큰 차이점이다.
+![pivot](./GitHubImage/quickSortPivot.png)    
+앞으로 설명할 low 와 high는 pivot이 맨 왼쪽일때 pivot바로 오른쪽값이 low, 끝값이 high이다. 이 둘은 각각 ++,-- 해나가며 이동한다.
+1. pivot >= arr[low] 일경우는 low를 오른쪽으로 이동 (++)
+2. pivot <= arr[high] 일경우 high를 왼쪽으로 이동 (--)
+3. 만약 low < high라면 arr[low]와 arr[high]를 교체
+4. 1,2 를 반복하다가 low > high 라면 빠져나오고 pivot과 arr[high]를 교체 (이 과정을 완료하면 pivot의 위치가 정해지고, 왼쪽은 pivot보다 작고, 오른쪽은 pivot보다 크다)  
+
+위 과정을 재귀적으로 하면 완료된다.
+```cpp
+
+int Sort::partition(int left, int right)
+{
+	int pivot = v[left];
+	int low = left + 1;
+	int high = right;
+
+	while (low <= high)
+	{
+		while (low <= right && pivot >= v[low])
+		{
+			low++;
+		}
+		while (high >= left + 1 && pivot <= v[high] )
+		{
+			high--;
+		}
+		if (low < high)
+		{
+			std::swap(v[low], v[high]);
+		}
+	}
+	std::swap(v[left], v[high]);
+
+	return high;
+}
+void Sort::QuickSort(int left, int right)
+{
+	if (left > right) return;
+	int pivot = partition(left,right);
+	QuickSort(left, pivot - 1);
+	QuickSort(pivot + 1, right);
+}
+```  
+이중루프로 되어있어 O(N^2)인것 처럼 보이지만, high와 low가 전진하기때문에 O(N), Partition부분은 O(logN)이므로 사실상 O(NlogN)이다. 
+하지만 최악의 경우에는 pivot을 N번 호출해야할때도 있어 O(N^2)이 나오기도 한다.(pivot값이 치우친경우)  
+Merge Sort, Heap Sort 와 같은 O(NlogN)이더라도, 데이터를 복사하는 비용을 고려하면 대부분의 상황에서 더 빠르게 작동한다.  
 > 구현된 정렬 코드들은 [Sort.cpp](/Algorithm/SelfModule/Sort.cpp) 에 다 모여있다. 
 
 ### 햇갈릴 만한것 review
