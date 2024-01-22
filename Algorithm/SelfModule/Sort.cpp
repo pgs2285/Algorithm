@@ -1,6 +1,8 @@
 #include <vector>
 #include <iostream>
+#include <queue>
 #include "Sort.h"
+
 
 void Sort::BubbleSort()
 {
@@ -47,6 +49,74 @@ void Sort::InsertSort()
 		}
 		v[j + 1] = insertData; // 그 적당한 위칭 insertData
 	}
+}
+
+void Sort::HeapSort()
+{
+	std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
+	for (int num : v)
+		pq.push(num);
+	v.clear();
+	while (pq.empty() == false)
+	{
+		v.push_back(pq.top());
+		pq.pop();
+	}
+}
+
+void Sort::MergeResult(int left, int mid, int right)
+{
+	//[1][3][5][9] | [2][4][6][10]  
+	// 앞에꺼끼리 비교하고 작으면 결과벡터로 간다.
+
+	std::vector<int> result;
+	int leftIdx = left;
+	int rightIdx = mid + 1;
+
+	while (leftIdx <= mid && rightIdx <= right)
+	{
+		if (v[leftIdx] <= v[rightIdx])
+		{
+			result.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+		else
+		{
+			result.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+
+	if (leftIdx > mid)
+	{
+		while (rightIdx <= right)
+		{
+			result.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+	else
+	{
+		while (leftIdx <= mid)
+		{
+			result.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+	}
+	for (int i = 0; i < result.size(); i++)
+	{
+		v[left + i] = result[i];
+	}
+}
+
+void Sort::MergeSort(int left, int right)
+{
+	if (left >= right) 
+		return;
+	int mid = (left + right) / 2;
+	MergeSort(left, mid);
+	MergeSort(mid + 1, right);
+	MergeResult(left,mid,right);
 }
 
 void Sort::printV()

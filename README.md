@@ -540,8 +540,102 @@ void Sort::InsertSort()
 	}
 }
 ```
+### 6-4.힙정렬  
+힙 정렬은 위에서 이진트리를 구현할때 많이 사용한 priority_queue를 사용하면 구현이 매우 간단하다.
+알고리즘은 다음과 같다
+1. n개의 노드에 대한 완전 이진 트리를 구성한다. 이때 루트 노드부터 부모노드, 왼쪽 자식노드, 오른쪽 자식노드 순으로 구성한다.  
+2. 최대 힙을 구성한다. 최대 힙이란 부모노드가 자식노드보다 큰 트리를 말하는데, 단말 노드를 자식노드로 가진 부모노드부터 구성하며 아래부터 루트까지 올라오며 순차적으로 만들어 갈 수 있다.  
+3. 가장 큰 수(루트에 위치)를 가장 작은 수와 교환한다.  
+4. 2와 3을 반복한다.  
+간단히 구현하자면 아래와 같다.
+```cpp
+void Sort::HeapSort()
+{
+	std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
+	for (int num : v)
+		pq.push(num);
+	v.clear();
+	while (pq.empty() == false)
+	{
+		v.push_back(pq.top());
+		pq.pop();
+	}
+}
+```  
+이 힙정렬은 위에서 확인했던 3가지 정렬들보다 시간복잡도가 우월하다.  
+우선순위 큐에서 push는 O(nlogn) pop또한 O(nlogn)의 시간복잡도를 가진다.  
+즉 힙정렬또한 O(nlogn)의 시간복잡도를 가진다.
 
-> 구현된 정렬 코드들은 [Sort.cpp]((/Algorithm/SelfModule/Sort.cpp) 에 다 모여있다. 
+### 6-5.병합정렬  
+분할정복이라는 계념이 들어가게된다.  
+1. 분할(Divide)  - 문제를 단순하게 분할
+2. 정복(Conquer) - 분할된 문제를 해결
+3. 결합(Combine) - 결과를 취합해 마무리  
+[3][5][1][9][2][6][4][8]을
+[3][5][1][9] | [2][6][4][8]로 나눠서 정렬한다. 이 또한  
+[3][5] | [1][9] | [2][6] | [4][8] ,
+[3] | [5] | [1] | [9] | [2] | [6] | [4] | [8]  
+처럼 계속 나눈다.
+결합은 자기 옆의 숫자와 비교해 다시 결합한다.
+[3][5] | [1][9] | [2][6] | [4][8] #숫자를 적을땐 막 썻는데 이미 되어있네...?  
+[1][3][5][9] | [2][4][6][8]  
+**[1][2][3][4][5][6][8][9]**  
+가 최종 결과값이다  
+이를 코드로 옮기면 다음과 같다.
+```cpp
+void Sort::MergeResult(int left, int mid, int right)
+{
+	std::vector<int> result;
+	int leftIdx = left;
+	int rightIdx = mid + 1;
+	while (leftIdx <= mid && rightIdx <= right)
+	{
+		if (v[leftIdx] <= v[rightIdx])
+		{
+			result.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+		else
+		{
+			result.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+
+	if (leftIdx > mid)
+	{
+		while (rightIdx <= right)
+		{
+			result.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+	else
+	{
+		while (leftIdx <= mid)
+		{
+			result.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+	}
+	for (int i = 0; i < result.size(); i++)
+	{
+		v[left + i] = result[i];
+	}
+}
+
+void Sort::MergeSort(int left, int right)
+{
+	if (left >= right) 
+		return;
+	int mid = (left + right) / 2;
+	MergeSort(left, mid);
+	MergeSort(mid + 1, right);
+	MergeResult(left,mid,right);
+}
+```  
+재귀함수로 구현하면 편하다.
+> 구현된 정렬 코드들은 [Sort.cpp](/Algorithm/SelfModule/Sort.cpp) 에 다 모여있다. 
 
 ### 햇갈릴 만한것 review
 

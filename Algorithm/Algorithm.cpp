@@ -7,8 +7,8 @@ using namespace std;
 
 int main()
 {
-	vector<int> v{ 3,5,7,6,1,2,9 };
+	vector<int> v{ 3,5,7,4,1,2,9,10 };
 	Sort s(v);
-	s.InsertSort();
+	s.MergeSort(0,v.size() - 1);
 	s.printV();
 }

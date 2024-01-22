@@ -10,6 +10,9 @@ public:
 	void printV();
 	void SelectionSort();
 	void InsertSort();
+	void HeapSort();
+	void MergeSort(int left, int right);  
+	void MergeResult(int left, int mid, int right);
 private:
 	std::vector<int> v;
 };
