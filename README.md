@@ -45,11 +45,7 @@
     - [7-1. map vs hash_map](#7-1-map-vs-hash_map)
     - [7-2.해시와 테이블](#7-2해시와-테이블)
     - [7-3. 해시테이블의 충돌](#7-3-해시테이블의-충돌)
-    - [햇갈릴 만한것 review](#햇갈릴-만한것-review)
-    - [1. (전위/후위)연산자 오버로딩.](#1-전위후위연산자-오버로딩)
-    - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
-    - [3. shared_ptr](#3-shared_ptr)
-    - [4. NULL 은 0이다.](#4-null-은-0이다)
+
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
