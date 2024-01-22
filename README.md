@@ -649,6 +649,10 @@ void Sort::MergeSort(int left, int right)
 2. pivot <= arr[high] 일경우 high를 왼쪽으로 이동 (--)
 3. 만약 low < high라면 arr[low]와 arr[high]를 교체
 4. 1,2 를 반복하다가 low > high 라면 빠져나오고 pivot과 arr[high]를 교체 (이 과정을 완료하면 pivot의 위치가 정해지고, 왼쪽은 pivot보다 작고, 오른쪽은 pivot보다 크다)  
+이를 그림으로 표현하면 아래와 같다  
+
+<img title="px(픽셀) 크기 설정" src="./GitHubImage/quicksort.jpeg" alt="quicksort" data-align="center" width="411">  
+
 
 위 과정을 재귀적으로 하면 완료된다.
 ```cpp
