@@ -46,7 +46,8 @@
     - [7-2.해시와 테이블](#7-2해시와-테이블)
     - [7-3. 해시테이블의 충돌](#7-3-해시테이블의-충돌)
   - [8. 최소 패스닝 트리](#8최소-스패닝-트리)
-    - [8-1. DisjointSet](#8-1disjoint-set) 	 
+    - [8-1. DisjointSet](#8-1disjoint-set) 
+    - [8-2. 최소신장트리(Minimum Spanning Tree)](#8-2-최소신장트리minimum-spannig-tree)	 
 
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
@@ -779,7 +780,7 @@ for(User& user : bucket)
 
 위처럼 키값을 먼저 찾고 순회하면 된다. 하지만 이 경우 최악의 case에선 시간복잡도가 O(N) 까지 나오기도 한다.(키값이 몰려있을경우)  
 
-## 8.최소 스패닝 트리  
+## 8.최소 신장 트리  
 Minimum Spanning Tree  
 ### 8-1.Disjoint Set
 상호 베타적 집합이다. 최소 스패닝 트리를 구현할때 자주 사용하기때문에 알아두고 가자. 유니온 파인드라고도 한다.  
@@ -794,6 +795,74 @@ Minimum Spanning Tree
 높이가 다르면 부모를 바꿔친 후, 아래로 붙여준다. 또한 Find함수는 재귀함수의 호출을 최소화하기 위해 return _parent[u] = Find(_parent[u]); 로 한번 찾은 부모 바로 밑으로 넣어준다.  
 즉 하나의 부모에 여러개의 자식이 있는 방법으로(이진트리가 아니다), 다음 Find때는 O(1)로 탐색이 가능하다.  
 구현된 코드는 [여기(DisjointSet.h)](./Algorithm/SelfModule/DisjointSet.h)를 클릭하면 볼 수 있다.  
+
+### 8-2. 최소신장트리(Minimum Spannig Tree)
+#### 8-2-a. 신장트리(Spanning Tree)  
+신장트리를 한마디로 정리하면 최소 연결 부분 그래프이다.  
+최소 연결이란 뜻은 사이클이 생기면 안된다는 뜻이다. 아래 이미지 같이 사이클이 생기면 신장트리가 아니다.  
+<img title="notSpanningTree" alt = "notSpanningTree" width="411" data-align="center" src="./GitHubImage/spanningtree.png">    
+즉 정점이 N개면 간선은 N-1개 여야 한다. 최소의 간선이라는 조건만 지키면 여러 형태도 나올 수 있다. 이러한 스패닝 트리는 통신 네트워크를 구축할 때 사용한다. 즉 모든 애들이 연결될 필요는 없지만, 한 곳에서 다른곳으로 갈 수는 있어야한다.   
+
+#### 8-2-b. 최소 신장 트리  
+노드를 연결하는 간선에는 대부분의 경우 가중치가 있을것이다. **최소 스패닝 트리는 스패닝 트리를 유지하며, 모든 경로(비용)에 대한 합이 최소가 되어야 한다**. 
+<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/minimumSpanningTree.png">      
+즉 위 사진이 최소신장 트리의 예시이다.  
+개념은 이게 전부이다.    
+
+### 8-2. 크루스칼(Kruskal) MST 알고리즘  
+최소 스패닝 트리를 만드는 알고리즘 중 하나이다.  
+특징은 탐욕적(greedy)방법을 사용한다. 즉 지금 이순간 최적인 답을 선택한다.   
+-> 모든 길을 다 본다음에 코스트가 낮을 길을 선택한다.  
+-> 작은 간선끼리 연결.  
+-> 아래 방법으로 사이클이 만들어 지지 않게 한다.  
+ 
+이미 연결된 노드끼리 그룹을 짓는다. 즉 그룹으로 관리하며, 연결이 되지 않은 그룹끼리만 연결하는 것이 Kruskal MST 알고리즘이다.  
+코드로 구현할때는 위에서 알아본 상호 베타적 집합(Disjoint Set)을 이용하면 효율적이다.  
+
+```cpp
+
+int Kruskal::costSum()
+{
+	int ret = 0;
+	selected.clear();
+	std::vector<CostEdge> edges;
+	for (int u = 0; u < _adjacent.size(); u++)
+	{
+		for (int v = 0; v < _adjacent[u].size(); v++)
+		{
+			int cost = _adjacent[u][v];
+			if (u > v)
+				continue; // 한쪽만 추가
+			if (cost == -1)
+				continue;
+			edges.push_back(CostEdge{cost, u, v}); // 일단 모든간선 사이 넣어주기
+
+		}
+	}
+	std::sort(edges.begin(), edges.end());
+
+	DisjointSet sets(_vertex.size());
+
+	for (CostEdge& edge : edges)
+	{
+		// 같은 그룹이면 스킵
+		if (sets.Find(edge.u) == sets.Find(edge.v))// 저번에 find는 최상위 부모찾게 했었음. 적용까지
+			continue;
+		// 두그룹 합치기
+		sets.Merge(edge.u, edge.v);
+		selected.push_back(edge);
+		ret += edge.cost;
+	}
+	return ret;
+}
+```  
+위처럼 정점 사이와 간선 코스트까지 CostEdge에 넣어주고 cost순으로 정렬후 낮은것부터 Merge를해 다 묶일때까지 하는것을 볼 수 있다.
+<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/kruskalResult.png">    
+생성된 코드는 아래와 같다.  
+![kruskal.cpp](./Algorithm/SelfModule/Kruskal.cpp)
+![kruskal.h](./Algorithm/SelfModule/Kruskal.h)
+
+
 ### 햇갈릴 만한것 review
 
 ### 1. (전위/후위)연산자 오버로딩.

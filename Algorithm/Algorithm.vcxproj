@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="SelfModule\Kruskal.cpp" />
     <ClCompile Include="SelfModule\RedBlackTree.cpp" />
     <ClCompile Include="SelfModule\BinarySearchTree.cpp" />
     <ClCompile Include="SelfModule\Dijkstra.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="SelfModule\Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\Kruskal.h" />
     <ClInclude Include="SelfModule\DisjointSet.h" />
     <ClInclude Include="SelfModule\RedBlackTree.h" />
     <ClInclude Include="SelfModule\BinarySearchTree.h" />

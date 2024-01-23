@@ -1,26 +1,27 @@
 ﻿#include <iostream>
 #include <vector>
 #include <thread>
-#include "SelfModule/DisjointSet.h"
+#include "SelfModule/Kruskal.h"
 
 using namespace std;
 
 int main()
 {
-	DisjointSet teams(1000);
-	teams.Merge(10, 1); // 10번과 1번을 합쳐줌. 여기선 부모가 왼쪽에있는 10번이 된다
-	int teamID = teams.Find(1);
-	int teamID2 = teams.Find(10);
+	vector<Vertex> vertices;
+	vector<vector<int>> adjacent; // 인접행렬
+	vertices.resize(6);
+	adjacent = vector<vector<int>>(6, vector<int>(6, -1));
+	//from - to
+	adjacent[0][1] = adjacent[1][0] = 15;
+	adjacent[0][3] = adjacent[3][0] = 35;
+	adjacent[1][2] = adjacent[2][1] = 5;
+	adjacent[1][3] = adjacent[3][1] = 10;
+	adjacent[3][4] = adjacent[4][3] = 5;
+	adjacent[3][5] = adjacent[5][3] = 10;
+	adjacent[5][4] = adjacent[4][5] = 5;
 
-	teams.Merge(3, 2); // 위와 동일
-	int teamID3 = teams.Find(3);
-	int teamID4 = teams.Find(2);
-
-	teams.Merge(1, 3);
-	int teamID6 = teams.Find(1);
-	int teamID7 = teams.Find(10);
-
-	cout << teamID << " " << teamID2 << " " << teamID3 << " " << teamID4 << " " << teamID6 << " " << teamID7 << " ";
+	Kruskal kruskal(vertices, adjacent);
+	cout << kruskal.costSum() << endl;
 
 
 }
