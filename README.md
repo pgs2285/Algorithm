@@ -48,7 +48,7 @@
   - [8. 최소 패스닝 트리](#8최소-스패닝-트리)
     - [8-1. DisjointSet](#8-1disjoint-set) 
     - [8-2. 최소신장트리(Minimum Spanning Tree)](#8-2-최소신장트리minimum-spannig-tree)	 
-
+    - [8-3. kruskal MST 알고리즘](#8-3-크루스칼Kruskal-MST-알고리즘)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -809,7 +809,7 @@ Minimum Spanning Tree
 즉 위 사진이 최소신장 트리의 예시이다.  
 개념은 이게 전부이다.    
 
-### 8-2. 크루스칼(Kruskal) MST 알고리즘  
+### 8-3. 크루스칼(Kruskal) MST 알고리즘  
 최소 스패닝 트리를 만드는 알고리즘 중 하나이다.  
 특징은 탐욕적(greedy)방법을 사용한다. 즉 지금 이순간 최적인 답을 선택한다.   
 -> 모든 길을 다 본다음에 코스트가 낮을 길을 선택한다.  
