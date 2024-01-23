@@ -194,6 +194,7 @@
     <ClCompile Include="SelfModule\Sort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SelfModule\DisjointSet.h" />
     <ClInclude Include="SelfModule\RedBlackTree.h" />
     <ClInclude Include="SelfModule\BinarySearchTree.h" />
     <ClInclude Include="SelfModule\BinarySearch.h" />
