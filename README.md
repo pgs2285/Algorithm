@@ -859,8 +859,8 @@ int Kruskal::costSum()
 위처럼 정점 사이와 간선 코스트까지 CostEdge에 넣어주고 cost순으로 정렬후 낮은것부터 Merge를해 다 묶일때까지 하는것을 볼 수 있다.
 <img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/kruskalResult.png">    
 생성된 코드는 아래와 같다.  
-![kruskal.cpp](./Algorithm/SelfModule/Kruskal.cpp)
-![kruskal.h](./Algorithm/SelfModule/Kruskal.h)
+[kruskal.cpp](./Algorithm/SelfModule/Kruskal.cpp)
+[kruskal.h](./Algorithm/SelfModule/Kruskal.h)
 
 
 ### 햇갈릴 만한것 review
