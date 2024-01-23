@@ -41,5 +41,6 @@
     <ClInclude Include="Player.h">
       <Filter>Board</Filter>
     </ClInclude>
+    <ClInclude Include="DisjointSet.h" />
   </ItemGroup>
 </Project>

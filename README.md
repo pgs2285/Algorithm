@@ -11,11 +11,7 @@
       - [2-4. 큐 구현하기](#2-4-큐-구현하기)
       - [2-5. 오른손의 법칙 개선하기](#2-5-오른손의-법칙-개선하기)
   - [그래프 기초](#그래프-기초)
-    - [3 - 1. 그래프 특징 및 구현](#3---1-그래프-특징-및-구현)
-      - [통째로 관리하는 방법](#통째로-관리하는-방법)
-      - [연결된 목록을 따로 관리하는 방법](#연결된-목록을-따로-관리하는-방법)
-      - [행렬을 이용해 관리하는 방법](#행렬을-이용해-관리하는-방법)
-      - [가중치가 있는그래프](#가중치가-있는그래프)
+    - [3 - 1. 그래프 특징 및 구현](#3---1-그래프-특징-및-구현) - [통째로 관리하는 방법](#통째로-관리하는-방법) - [연결된 목록을 따로 관리하는 방법](#연결된-목록을-따로-관리하는-방법) - [행렬을 이용해 관리하는 방법](#행렬을-이용해-관리하는-방법) - [가중치가 있는그래프](#가중치가-있는그래프)
     - [3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기](#3-2-dfs깊이-우선-탐색-depth-first-search-구현하기)
     - [3-3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
     - [3-4. BFS를 이용한 길찾기 구현.](#3-4-bfs를-이용한-길찾기-구현)
@@ -45,10 +41,19 @@
     - [7-1. map vs hash_map](#7-1-map-vs-hash_map)
     - [7-2.해시와 테이블](#7-2해시와-테이블)
     - [7-3. 해시테이블의 충돌](#7-3-해시테이블의-충돌)
-  - [8. 최소 패스닝 트리](#8최소-스패닝-트리)
-    - [8-1. DisjointSet](#8-1disjoint-set) 
-    - [8-2. 최소신장트리(Minimum Spanning Tree)](#8-2-최소신장트리minimum-spannig-tree)	 
-    - [8-3. kruskal MST 알고리즘](#8-3-크루스칼Kruskal-MST-알고리즘)
+  - [8.최소 신장 트리](#8최소-신장-트리)
+    - [8-1.Disjoint Set](#8-1disjoint-set)
+    - [8-2. 최소신장트리(Minimum Spannig Tree)](#8-2-최소신장트리minimum-spannig-tree)
+      - [8-2-a. 신장트리(Spanning Tree)](#8-2-a-신장트리spanning-tree)
+      - [8-2-b. 최소 신장 트리](#8-2-b-최소-신장-트리)
+    - [8-3. 크루스칼(Kruskal) MST 알고리즘](#8-3-크루스칼kruskal-mst-알고리즘)
+      - [8-3-a. kruskal 알고리즘을 이용한 맵 생성](#8-3-a-kruskal-알고리즘을-이용한-맵-생성)
+    - [8-4 프림(PRIM) MST 알고리즘](#8-4-프림prim-mst-알고리즘)
+  - [햇갈릴 만한것 review](#햇갈릴-만한것-review)
+    - [1. (전위/후위)연산자 오버로딩.](#1-전위후위연산자-오버로딩)
+    - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
+    - [3. shared_ptr](#3-shared_ptr)
+    - [4. NULL 은 0이다.](#4-null-은-0이다)
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
@@ -778,46 +783,53 @@ for(User& user : bucket)
 }
 ```
 
-위처럼 키값을 먼저 찾고 순회하면 된다. 하지만 이 경우 최악의 case에선 시간복잡도가 O(N) 까지 나오기도 한다.(키값이 몰려있을경우)  
+위처럼 키값을 먼저 찾고 순회하면 된다. 하지만 이 경우 최악의 case에선 시간복잡도가 O(N) 까지 나오기도 한다.(키값이 몰려있을경우)
 
-## 8.최소 신장 트리  
-Minimum Spanning Tree  
+## 8.최소 신장 트리
+
+Minimum Spanning Tree
+
 ### 8-1.Disjoint Set
+
 상호 베타적 집합이다. 최소 스패닝 트리를 구현할때 자주 사용하기때문에 알아두고 가자. 유니온 파인드라고도 한다.  
-즉 아래같이 팀을 짜는 상황에서 많이 사용한다.    
+즉 아래같이 팀을 짜는 상황에서 많이 사용한다.  
 <img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/djt.png">  
 트리구조를 이용해 상호 베타적 집합을 표현한다. (구현은 vector로 충분하다.)  
 만약 트리 두개를 병합하려 할때는 트리가 한쪽으로 기우는 문제를 해결하기 위해서 (Union By Rank)를 해야한다.  
-즉 [높이가 낮은 트리]를 [높이가 높은 트리] 밑으로 합치는 것이다.   
+즉 [높이가 낮은 트리]를 [높이가 높은 트리] 밑으로 합치는 것이다.  
 구현된 이미지 와 그 설명은 아래 2개를 참조한다.  
 <img title="disjoint" alt = "disjoint" width="411" data-align="left" src="./GitHubImage/disjointSet.png">
-<img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/disjointSetReview.png">    
-높이가 다르면 부모를 바꿔친 후, 아래로 붙여준다. 또한 Find함수는 재귀함수의 호출을 최소화하기 위해 return _parent[u] = Find(_parent[u]); 로 한번 찾은 부모 바로 밑으로 넣어준다.  
+<img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/disjointSetReview.png">  
+높이가 다르면 부모를 바꿔친 후, 아래로 붙여준다. 또한 Find함수는 재귀함수의 호출을 최소화하기 위해 return \_parent[u] = Find(\_parent[u]); 로 한번 찾은 부모 바로 밑으로 넣어준다.  
 즉 하나의 부모에 여러개의 자식이 있는 방법으로(이진트리가 아니다), 다음 Find때는 O(1)로 탐색이 가능하다.  
-구현된 코드는 [여기(DisjointSet.h)](./Algorithm/SelfModule/DisjointSet.h)를 클릭하면 볼 수 있다.  
+구현된 코드는 [여기(DisjointSet.h)](./Algorithm/SelfModule/DisjointSet.h)를 클릭하면 볼 수 있다.
 
 ### 8-2. 최소신장트리(Minimum Spannig Tree)
-#### 8-2-a. 신장트리(Spanning Tree)  
+
+#### 8-2-a. 신장트리(Spanning Tree)
+
 신장트리를 한마디로 정리하면 최소 연결 부분 그래프이다.  
 최소 연결이란 뜻은 사이클이 생기면 안된다는 뜻이다. 아래 이미지 같이 사이클이 생기면 신장트리가 아니다.  
-<img title="notSpanningTree" alt = "notSpanningTree" width="411" data-align="center" src="./GitHubImage/spanningtree.png">    
-즉 정점이 N개면 간선은 N-1개 여야 한다. 최소의 간선이라는 조건만 지키면 여러 형태도 나올 수 있다. 이러한 스패닝 트리는 통신 네트워크를 구축할 때 사용한다. 즉 모든 애들이 연결될 필요는 없지만, 한 곳에서 다른곳으로 갈 수는 있어야한다.   
+<img title="notSpanningTree" alt = "notSpanningTree" width="411" data-align="center" src="./GitHubImage/spanningtree.png">  
+즉 정점이 N개면 간선은 N-1개 여야 한다. 최소의 간선이라는 조건만 지키면 여러 형태도 나올 수 있다. 이러한 스패닝 트리는 통신 네트워크를 구축할 때 사용한다. 즉 모든 애들이 연결될 필요는 없지만, 한 곳에서 다른곳으로 갈 수는 있어야한다.
 
-#### 8-2-b. 최소 신장 트리  
-노드를 연결하는 간선에는 대부분의 경우 가중치가 있을것이다. **최소 스패닝 트리는 스패닝 트리를 유지하며, 모든 경로(비용)에 대한 합이 최소가 되어야 한다**. 
-<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/minimumSpanningTree.png">      
+#### 8-2-b. 최소 신장 트리
+
+노드를 연결하는 간선에는 대부분의 경우 가중치가 있을것이다. **최소 스패닝 트리는 스패닝 트리를 유지하며, 모든 경로(비용)에 대한 합이 최소가 되어야 한다**.
+<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/minimumSpanningTree.png">  
 즉 위 사진이 최소신장 트리의 예시이다.  
-개념은 이게 전부이다.    
+개념은 이게 전부이다.
 
-### 8-3. 크루스칼(Kruskal) MST 알고리즘  
+### 8-3. 크루스칼(Kruskal) MST 알고리즘
+
 최소 스패닝 트리를 만드는 알고리즘 중 하나이다.  
-특징은 탐욕적(greedy)방법을 사용한다. 즉 지금 이순간 최적인 답을 선택한다.   
+특징은 탐욕적(greedy)방법을 사용한다. 즉 지금 이순간 최적인 답을 선택한다.  
 -> 모든 길을 다 본다음에 코스트가 낮을 길을 선택한다.  
 -> 작은 간선끼리 연결.  
--> 아래 방법으로 사이클이 만들어 지지 않게 한다.  
- 
+-> 아래 방법으로 사이클이 만들어 지지 않게 한다.
+
 이미 연결된 노드끼리 그룹을 짓는다. 즉 그룹으로 관리하며, 연결이 되지 않은 그룹끼리만 연결하는 것이 Kruskal MST 알고리즘이다.  
-코드로 구현할때는 위에서 알아본 상호 베타적 집합(Disjoint Set)을 이용하면 효율적이다.  
+코드로 구현할때는 위에서 알아본 상호 베타적 집합(Disjoint Set)을 이용하면 효율적이다.
 
 ```cpp
 
@@ -855,15 +867,83 @@ int Kruskal::costSum()
 	}
 	return ret;
 }
-```  
+```
+
 위처럼 정점 사이와 간선 코스트까지 CostEdge에 넣어주고 cost순으로 정렬후 낮은것부터 Merge를해 다 묶일때까지 하는것을 볼 수 있다.
-<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/kruskalResult.png">    
+<img title="MinSpanningTree" alt = "MinSpanningTree" width="411" data-align="center" src="./GitHubImage/kruskalResult.png">  
 생성된 코드는 아래와 같다.  
 [kruskal.cpp](./Algorithm/SelfModule/Kruskal.cpp)
 [kruskal.h](./Algorithm/SelfModule/Kruskal.h)
 
+#### 8-3-a. kruskal 알고리즘을 이용한 맵 생성
 
-### 햇갈릴 만한것 review
+```cpp
+struct CostEdge
+{
+	int cost;
+	Pos u;
+	Pos v;
+
+	bool operator<(CostEdge& other)
+	{
+		return cost < other.cost;
+	}
+};
+void GenerateMap(){
+//...(생략)
+    std::vector<CostEdge> edges;
+    for (int32 y = 0; y < _size; y++)
+    {
+        for (int32 x = 0; x < _size; x++)
+        {
+            if (x % 2 == 0 || y % 2 == 0)
+                continue;
+            if (x < _size - 2)
+            {
+                const int32 randomValue = ::rand() % 100;
+                edges.push_back(CostEdge{ randomValue, Pos{y, x}, Pos{y, x + 2} });
+            }
+            if (y < _size - 2)
+            {
+                const int32 randomValue = ::rand() % 100;
+                edges.push_back(CostEdge{ randomValue, Pos{y, x}, Pos{y + 2, x} });
+            }
+
+        }
+    }
+        std::sort(edges.begin(), edges.end());
+
+        DisjointSet sets(_size * _size);
+        for (CostEdge& edge : edges)
+        {
+            int u = edge.u.y * _size + edge.u.x; // 2차원 xy를 1차원 으로
+            int v = edge.v.y * _size + edge.v.x;
+            if(sets.Find(u) == sets.Find(v))
+                continue;
+            sets.Merge(u,v);
+            int _y = (edge.u.y + edge.v.y) / 2;
+            int x = (edge.v.x + edge.u.x) / 2;
+            _tile[_y][x] = TileType::EMPTY;
+        }
+    }
+}
+```
+
+이전에 길찾기 할때 만들어 두었던 GenerateMap을 Kruskal로 수정해준다. 다만 x,y 좌표로 구성되어 cost가 없으므로 간선에 코스트는 rand %100 으로
+랜덤 설정 해두었다. 나머지는 이전에 봤던 Kruskal 과 비슷하다.  
+코드는 [여기](./Maze/Board.cpp) 의 GenerateMap_Kruskal 함수를 보면 알 수 있다
+
+### 8-4 프림(PRIM) MST 알고리즘
+
+시작점을 임의로 잡고 자신과 연결된 간선 후보 에서부터 경로를 수집해 나가며, 최소값을 구한다. 다익스트라 알고리즘과 유사하게 작동한다.  
+다만 다익스트라는 **시작점을 기준**으로 최단 cost를 구한것 이고,
+프림은 **트리를 기준**으로 최단 cost를 구한다.  
+코드는 [여기](./Maze/Board.cpp) 의 GenerateMap_Prim 함수를 보면 알 수 있다.  
+아래 gif는 prim알고리즘이 너무 정리가 잘되어 있어 가져왔다.  
+[출처](https://limecoding.tistory.com/126)  
+<img title="prim" alt = "prim" width="411" data-align="center" src="./GitHubImage/prim.gif">
+
+## 햇갈릴 만한것 review
 
 ### 1. (전위/후위)연산자 오버로딩.
 

@@ -195,6 +195,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="ConsoleHelper.h" />
+    <ClInclude Include="DisjointSet.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Types.h" />
