@@ -49,11 +49,7 @@
     - [8-3. 크루스칼(Kruskal) MST 알고리즘](#8-3-크루스칼kruskal-mst-알고리즘)
       - [8-3-a. kruskal 알고리즘을 이용한 맵 생성](#8-3-a-kruskal-알고리즘을-이용한-맵-생성)
     - [8-4 프림(PRIM) MST 알고리즘](#8-4-프림prim-mst-알고리즘)
-  - [햇갈릴 만한것 review](#햇갈릴-만한것-review)
-    - [1. (전위/후위)연산자 오버로딩.](#1-전위후위연산자-오버로딩)
-    - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
-    - [3. shared_ptr](#3-shared_ptr)
-    - [4. NULL 은 0이다.](#4-null-은-0이다)
+
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
 
