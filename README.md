@@ -783,13 +783,16 @@ for(User& user : bucket)
 Minimum Spanning Tree  
 ### 8-1.Disjoint Set
 상호 베타적 집합이다. 최소 스패닝 트리를 구현할때 자주 사용하기때문에 알아두고 가자. 유니온 파인드라고도 한다.  
-트리구조를 이용해 상호 베타적 집합을 표현한다.
+즉 아래같이 팀을 짜는 상황에서 많이 사용한다.    
+<img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/djt.png">  
+트리구조를 이용해 상호 베타적 집합을 표현한다. (구현은 vector로 충분하다.)  
 만약 트리 두개를 병합하려 할때는 트리가 한쪽으로 기우는 문제를 해결하기 위해서 (Union By Rank)를 해야한다.  
 즉 [높이가 낮은 트리]를 [높이가 높은 트리] 밑으로 합치는 것이다.   
 구현된 이미지 와 그 설명은 아래 2개를 참조한다.  
 <img title="disjoint" alt = "disjoint" width="411" data-align="left" src="./GitHubImage/disjointSet.png">
 <img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/disjointSetReview.png">    
 높이가 다르면 부모를 바꿔친 후, 아래로 붙여준다. 또한 Find함수는 재귀함수의 호출을 최소화하기 위해 return _parent[u] = Find(_parent[u]); 로 한번 찾은 부모 바로 밑으로 넣어준다.  
+즉 하나의 부모에 여러개의 자식이 있는 방법으로(이진트리가 아니다), 다음 Find때는 O(1)로 탐색이 가능하다.  
 구현된 코드는 [여기(DisjointSet.h)](./Algorithm/SelfModule/DisjointSet.h)를 클릭하면 볼 수 있다.  
 ### 햇갈릴 만한것 review
 
