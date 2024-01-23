@@ -45,6 +45,8 @@
     - [7-1. map vs hash_map](#7-1-map-vs-hash_map)
     - [7-2.해시와 테이블](#7-2해시와-테이블)
     - [7-3. 해시테이블의 충돌](#7-3-해시테이블의-충돌)
+  - [8. 최소 패스닝 트리](#8최소-스패닝-트리)
+    - [8-1. DisjointSet](#8-1disjoint-set) 	 
 
 
 -[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
@@ -784,7 +786,7 @@ Minimum Spanning Tree
 트리구조를 이용해 상호 베타적 집합을 표현한다.
 만약 트리 두개를 병합하려 할때는 트리가 한쪽으로 기우는 문제를 해결하기 위해서 (Union By Rank)를 해야한다.  
 즉 [높이가 낮은 트리]를 [높이가 높은 트리] 밑으로 합치는 것이다.   
-구현된 이미지 와 그 설명은 아래 2개를 참조한다
+구현된 이미지 와 그 설명은 아래 2개를 참조한다.  
 <img title="disjoint" alt = "disjoint" width="411" data-align="left" src="./GitHubImage/disjointSet.png">
 <img title="disjoint" alt = "disjoint" width="411" data-align="right" src="./GitHubImage/disjointSetReview.png">    
 높이가 다르면 부모를 바꿔친 후, 아래로 붙여준다. 또한 Find함수는 재귀함수의 호출을 최소화하기 위해 return _parent[u] = Find(_parent[u]); 로 한번 찾은 부모 바로 밑으로 넣어준다.  
