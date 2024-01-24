@@ -11,7 +11,11 @@
       - [2-4. 큐 구현하기](#2-4-큐-구현하기)
       - [2-5. 오른손의 법칙 개선하기](#2-5-오른손의-법칙-개선하기)
   - [그래프 기초](#그래프-기초)
-    - [3 - 1. 그래프 특징 및 구현](#3---1-그래프-특징-및-구현) - [통째로 관리하는 방법](#통째로-관리하는-방법) - [연결된 목록을 따로 관리하는 방법](#연결된-목록을-따로-관리하는-방법) - [행렬을 이용해 관리하는 방법](#행렬을-이용해-관리하는-방법) - [가중치가 있는그래프](#가중치가-있는그래프)
+    - [3 - 1. 그래프 특징 및 구현](#3---1-그래프-특징-및-구현)
+      - [통째로 관리하는 방법](#통째로-관리하는-방법)
+      - [연결된 목록을 따로 관리하는 방법](#연결된-목록을-따로-관리하는-방법)
+      - [행렬을 이용해 관리하는 방법](#행렬을-이용해-관리하는-방법)
+      - [가중치가 있는그래프](#가중치가-있는그래프)
     - [3-2. DFS(깊이 우선 탐색, Depth First Search) 구현하기](#3-2-dfs깊이-우선-탐색-depth-first-search-구현하기)
     - [3-3. BFS(너비 우선 탐색, Breath First Search) 구현하기](#3-3-bfs너비-우선-탐색-breath-first-search-구현하기)
     - [3-4. BFS를 이용한 길찾기 구현.](#3-4-bfs를-이용한-길찾기-구현)
@@ -49,14 +53,13 @@
     - [8-3. 크루스칼(Kruskal) MST 알고리즘](#8-3-크루스칼kruskal-mst-알고리즘)
       - [8-3-a. kruskal 알고리즘을 이용한 맵 생성](#8-3-a-kruskal-알고리즘을-이용한-맵-생성)
     - [8-4 프림(PRIM) MST 알고리즘](#8-4-프림prim-mst-알고리즘)
-
-
--[햇갈릴 만한것 Review](#햇갈릴-만한것-review)
-
-- [1. 전위/후위 연산자 오버로딩](#1-전위후위연산자-오버로딩)
-- [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
-- [3. shared_ptr](#3-shared_ptr)
-- [4. NULL 은 0 이다](#4-NULL-은-0이다)
+  - [9. 동적 계획법](#9-동적-계획법)
+    - [9-1. 동적 계획법 입문(Combination)](#9-1-동적-계획법-입문combination)
+  - [10. 햇갈릴 만한것 review (번외)](#10-햇갈릴-만한것-review-번외)
+    - [1. (전위/후위)연산자 오버로딩.](#1-전위후위연산자-오버로딩)
+    - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
+    - [3. shared_ptr](#3-shared_ptr)
+    - [4. NULL 은 0이다.](#4-null-은-0이다)
 
 ## 1.프로젝트 준비
 
@@ -939,7 +942,25 @@ void GenerateMap(){
 [출처](https://limecoding.tistory.com/126)  
 <img title="prim" alt = "prim" width="411" data-align="center" src="./GitHubImage/prim.gif">
 
-## 햇갈릴 만한것 review
+## 9. 동적 계획법
+
+### 9-1. 동적 계획법 입문(Combination)
+
+동적 계획법은 하나의 큰 문제를 여러 개의 작은 문제로 나누어서 그 결과를 저장하여 다시 큰 문제를 해결할 때 사용한다.
+Combination을 예시로 하나 들어보자. 일반적으로 Combination을 구현땐 아래 공식을 이용해 재귀함수로 구하곤 한다.  
+<img title="prim" alt = "prim" width="400" data-align="left" src="./GitHubImage/Equation.png">
+<img title="prim" alt = "prim" width="400" data-align="right" src="./GitHubImage/combination.png">
+
+이를 재귀함수 코드로 구현하면 Combination(n-1, k-1) + Combination(n-1, k) 가 나올텐데, 이는 겹치는 부분이 많아 재귀함수를 사용하면 비효율 적이다.
+(실제 재귀함수로 Combination(45,6)을 하면 비교횟수가 96만번 정도 나온다..)  
+이럴땐 여러번 호출하는 부분을 줄이면 더욱 효율적이란 생각이 들텐데, 예를들어 Combination(2,1)은 수가 커지면 여러번 사용되니 cache에 저장되어 값만 호출하는 방법등이 있을것이다.
+<img title="prim" alt = "prim" width="400" data-align="left" src="./GitHubImage/withDP.png">
+<img title="prim" alt = "prim" width="400" data-align="right" src="./GitHubImage/withoutDP.png">  
+ms단위라 체감은 안가지만 측정속도는 확실이 줄어든 것을 볼 수 있다.
+
+위 예시에서 보듯 DP에서 중요한것은 **계산결과를 저장**하는 메모이제이션 기법을 사용해 연산을 한다.
+
+## 10. 햇갈릴 만한것 review (번외)
 
 ### 1. (전위/후위)연산자 오버로딩.
 
