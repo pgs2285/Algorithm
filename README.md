@@ -60,6 +60,7 @@
     - [2. vector의 resize vs reserve](#2-vector의-resize-vs-reserve)
     - [3. shared_ptr](#3-shared_ptr)
     - [4. NULL 은 0이다.](#4-null-은-0이다)
+  - [이 후 학습법](#end-이-후-학습법) 
 
 ## 1.프로젝트 준비
 
@@ -1039,3 +1040,5 @@ if(index!=NULL) cout << index <<endl;
 이후에는 백준 문제를 꾸준히 풀어 다른 레포지토리에 업로드 한다.  
 좀 난이도 있고, 풀이에 고충이 있던 문제는 tistory개인 블로그에 업로드 한다.  
 이상! 알고리즘 기초공부는 마무리하고, 이제 꾸준히 문제를 풀며 체화해야겠다.
+
+https://github.com/pgs2285/Algorithm_backjoon
